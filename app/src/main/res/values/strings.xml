@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SiapaBisa</string>
+    <string name="intro">Kamu Bisa? Ayo Gabung Sekarang!</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
 </resources>
