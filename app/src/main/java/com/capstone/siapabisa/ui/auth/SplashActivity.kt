@@ -6,19 +6,22 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.capstone.siapabisa.MainActivity
-import com.capstone.siapabisa.R
+import com.capstone.siapabisa.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySplashBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         val token = ""
 
-        //write a delay here for 2 seconds
         Handler(Looper.getMainLooper()).postDelayed({
             if (token == "") {
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this, LoginRegister::class.java)
                 startActivity(intent)
             } else {
                 val intent = Intent(this, MainActivity::class.java)
