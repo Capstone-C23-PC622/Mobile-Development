@@ -1,5 +1,6 @@
 package com.capstone.siapabisa.ui.auth
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.capstone.siapabisa.R
@@ -12,5 +13,9 @@ class LoginRegister : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+       binding. btnLogin.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 }
