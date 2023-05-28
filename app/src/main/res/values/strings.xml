@@ -3,5 +3,7 @@
     <string name="intro">Kamu Bisa? Ayo Gabung Sekarang!</string>
     <string name="login">Masuk</string>
     <string name="register">Daftar</string>
-    <string name="passwordText">Password\n</string>
+    <string name="passwordText">Password</string>
+    <string name="loginText">Masuk</string>
+    <string name="usernameText">Username</string>
 </resources>

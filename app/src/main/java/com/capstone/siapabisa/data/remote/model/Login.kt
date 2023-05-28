@@ -1,6 +1,5 @@
-package com.capstone.siapabisa.data.local
+package com.capstone.siapabisa.data.remote.model
 
-import com.capstone.siapabisa.data.remote.User
 import com.google.gson.annotations.SerializedName
 
 data class Login(
