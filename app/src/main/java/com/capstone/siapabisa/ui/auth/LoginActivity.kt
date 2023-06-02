@@ -19,6 +19,7 @@ import com.capstone.siapabisa.util.checkUsername
 import kotlinx.coroutines.launch
 import com.capstone.siapabisa.data.Result
 import com.capstone.siapabisa.data.local.LoginPreferences
+import com.capstone.siapabisa.ui.main.UserActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,6 +33,9 @@ class LoginActivity : AppCompatActivity() {
 
         factory = ViewModelFactory.getInstance(this)
         binding.btnLogin.isEnabled = false
+
+        val loginPref = LoginPreferences(this)
+        loginPref.clearToken()
 
         checkValid()
 
@@ -52,8 +56,6 @@ class LoginActivity : AppCompatActivity() {
 
         }
 
-
-
     }
 
     private fun login(){
@@ -63,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
                     val loginPref = LoginPreferences(this)
                     login.data.token?.let { loginPref.setToken(it) }
                     Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
+                    val intent = Intent(this, UserActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     binding.progressBar.visibility = View.GONE
                     startActivity(intent)

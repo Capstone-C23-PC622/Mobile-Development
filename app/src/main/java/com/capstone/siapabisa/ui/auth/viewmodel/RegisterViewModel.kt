@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class RegisterViewModel(private val repository: Repository): ViewModel() {
 
     private val _responseRegister = repository.responseRegister
-    val responseLogin: LiveData<Result<ResponseRegister>> = _responseRegister
+    val responseRegister: LiveData<Result<ResponseRegister>> = _responseRegister
 
     fun register(username : String, email : String, password : String, role : Int){
         viewModelScope.launch { repository.register(username, email, password, role) }
