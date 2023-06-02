@@ -9,5 +9,9 @@
     <color name="blue_900">#FF013F6B</color>
     <color name="blue_500">#FF3387B7</color>
     <color name="blue_200">#FFB3D1E0</color>
+
+    <color name="red_900">#FFB00020</color>
+    <color name="red_500">#FFFF0000</color>
+    <color name="red_200">#FFFFB3B3</color>
 </resources>
 

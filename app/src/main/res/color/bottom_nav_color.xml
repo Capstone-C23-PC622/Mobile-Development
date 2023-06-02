@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- This is the color when the item is selected -->
+    <item android:color="@color/yellow_400" android:state_enabled="true" android:state_selected="true"/>
+    <!-- This is the color when the item is not selected -->
+    <item android:color="@color/white" android:state_enabled="true" android:state_selected="false"/>
+    <!-- This is the color when the item is disabled -->
+    <item android:color="@color/white" android:state_enabled="false"/>
+</selector>

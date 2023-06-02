@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.LoginActivity">
+    tools:context=".ui.auth.RegisterActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -19,15 +23,15 @@
         app:srcCompat="@drawable/siapabisa_logo_only" />
 
     <TextView
-        android:id="@+id/tv_loginText"
+        android:id="@+id/tv_registerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_text"
+        android:text="@string/register_text"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
 
@@ -40,12 +44,12 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_loginText" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_registerText" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_username_layout"
+        android:id="@+id/et_name_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,19 +63,60 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_namaText">
 
         <com.capstone.siapabisa.ui.custom.UsernameEditText
-            android:id="@+id/et_login_username"
+            android:id="@+id/et_register_username"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/text_input_bg"
             android:ems="10"
             android:inputType="textAutoComplete"
+            android:padding="16dp"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/tv_email_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/email_text"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_name_layout"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/et_email_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/email_text"
+        app:boxStrokeWidth="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_email_text"
+        app:passwordToggleEnabled="false">
+
+        <com.capstone.siapabisa.ui.custom.EmailEditText
+            android:id="@+id/et_register_email"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/text_input_bg"
+            android:ems="10"
+            android:inputType="textEmailAddress"
             android:padding="16dp"
-            android:drawableStart="@drawable/ic_person"/>
+            android:drawableStart="@drawable/ic_email"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tv_passwordText"
+        android:id="@+id/tv_password_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -79,9 +124,10 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_username_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/et_email_layout"
+        />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/et_password_layout"
@@ -95,11 +141,11 @@
         app:boxStrokeWidth="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_passwordText"
+        app:layout_constraintTop_toBottomOf="@+id/tv_password_text"
         app:passwordToggleEnabled="false">
 
         <com.capstone.siapabisa.ui.custom.PasswordEditText
-            android:id="@+id/et_login_password"
+            android:id="@+id/et_register_password"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/text_input_bg"
@@ -111,22 +157,40 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btn_register_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="80dp"
+        android:layout_marginEnd="64dp"
         android:background="@drawable/button_primary"
-        android:text="@string/login_text"
-        android:textColor="@color/white"
-        android:textAllCaps="false"
-        android:textSize="18sp"
         android:padding="17dp"
+        android:text="@string/register_user_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_password_layout" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_register_usaha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:background="@drawable/button_secondary"
+        android:padding="17dp"
+        android:text="@string/register_usaha_text"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_register_user" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -142,3 +206,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

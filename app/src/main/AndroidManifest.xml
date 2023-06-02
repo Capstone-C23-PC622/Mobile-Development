@@ -15,6 +15,12 @@
         android:theme="@style/Theme.SiapaBisa"
         tools:targetApi="31">
         <activity
+            android:name=".ui.user.UserSettings"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.UserActivity"
             android:exported="false" />
         <activity
