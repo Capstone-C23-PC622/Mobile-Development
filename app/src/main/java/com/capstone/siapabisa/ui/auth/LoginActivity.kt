@@ -8,18 +8,15 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
-import com.capstone.siapabisa.MainActivity
 import com.capstone.siapabisa.databinding.ActivityLoginBinding
 import com.capstone.siapabisa.di.ViewModelFactory
 import com.capstone.siapabisa.ui.auth.viewmodel.LoginViewModel
-import com.capstone.siapabisa.ui.custom.UsernameEditText
 import com.capstone.siapabisa.util.checkPassword
 import com.capstone.siapabisa.util.checkUsername
-import kotlinx.coroutines.launch
 import com.capstone.siapabisa.data.Result
 import com.capstone.siapabisa.data.local.LoginPreferences
-import com.capstone.siapabisa.ui.main.UserActivity
+import com.capstone.siapabisa.ui.user.MainActivity
+import com.capstone.siapabisa.ui.user.UserActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -65,7 +62,7 @@ class LoginActivity : AppCompatActivity() {
                     val loginPref = LoginPreferences(this)
                     login.data.token?.let { loginPref.setToken(it) }
                     Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, UserActivity::class.java)
+                    val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     binding.progressBar.visibility = View.GONE
                     startActivity(intent)

@@ -9,6 +9,8 @@ import com.capstone.siapabisa.data.remote.ApiService
 import com.capstone.siapabisa.data.remote.ResponseRegister
 import com.capstone.siapabisa.data.remote.ResponseSubmitBiodata
 import com.capstone.siapabisa.data.remote.model.Birthday
+import com.capstone.siapabisa.dummy.Jobs
+import com.capstone.siapabisa.dummy.jobList
 
 class Repository(private val apiService: ApiService, private val context: Context) {
 
@@ -37,7 +39,7 @@ class Repository(private val apiService: ApiService, private val context: Contex
         }
     }
 
-    suspend fun register(username : String, email : String, password : String, role : Int){
+    suspend fun register(username : String, email : String, password : String, role : String){
         try {
             val response = ApiConfig.getApiService().register(username, email, password, role)
             if (response.isSuccessful) {
@@ -66,6 +68,16 @@ class Repository(private val apiService: ApiService, private val context: Contex
             }
         } catch (e: Exception) {
             _responseSubmitBiodata.value = Result.Error(e.message.toString())
+        }
+    }
+
+   fun getDummyJobs(): List<Jobs> {
+        return jobList
+    }
+
+    fun searchDummyJobs(keyword : String) : List<Jobs> {
+        return jobList.filter {
+            it.namaPerusahaan.lowercase().contains(keyword.lowercase())
         }
     }
 
