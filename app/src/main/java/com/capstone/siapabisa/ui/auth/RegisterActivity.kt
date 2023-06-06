@@ -8,13 +8,8 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.core.view.isVisible
-import com.capstone.siapabisa.MainActivity
-import com.capstone.siapabisa.R
-import com.capstone.siapabisa.databinding.ActivityLoginBinding
 import com.capstone.siapabisa.databinding.ActivityRegisterBinding
 import com.capstone.siapabisa.di.ViewModelFactory
-import com.capstone.siapabisa.ui.auth.viewmodel.LoginViewModel
 import com.capstone.siapabisa.ui.auth.viewmodel.RegisterViewModel
 import com.capstone.siapabisa.util.checkEmail
 import com.capstone.siapabisa.util.checkPassword
@@ -44,7 +39,7 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.etRegisterPassword.text?.trim().toString()
 
             try{
-                viewModel.register(username, email, password, 1)
+                viewModel.register(username, email, password, "1")
                 register()
             }
             catch(e: Exception){
@@ -59,7 +54,7 @@ class RegisterActivity : AppCompatActivity() {
             val password = binding.etRegisterPassword.text?.trim().toString()
 
             try{
-                viewModel.register(username, email, password, 2)
+                viewModel.register(username, email, password, "2")
                 register()
             }
             catch(e: Exception){

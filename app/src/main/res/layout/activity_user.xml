@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.UserActivity">
+    tools:context=".ui.user.UserActivity">
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -22,11 +22,10 @@
         app:menu="@menu/bottom_nav_menu" />
 
     <ScrollView
-        android:layout_width="409dp"
-        android:layout_height="649dp"
-        android:layout_marginStart="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,173 +35,172 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/akun_text"
                 android:textColor="@color/black"
                 android:textSize="30sp"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-            />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_name_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/name_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/name_text"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_address_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/address_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/address_text"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_pendidikan_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/pendidikan_terakhir"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_pendidikan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/pendidikan_terakhir"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_pengalaman_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/pengalamman_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_pengalaman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/pengalamman_text"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_skill_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/keterampilan_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_keterampilan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/keterampilan_text"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_peminatan_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/peminatan_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_peminatan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/peminatan_text"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_deskripsi_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/deskripsi_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_deskripsi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/deskripsi_text"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_biodata"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="86dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="86dp"
                 android:background="@drawable/button_primary"
                 android:padding="4dp"
@@ -214,59 +212,59 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp" />
 
             <TextView
                 android:id="@+id/tv_username_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/username_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/username_text"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tv_email_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/email_text"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="@string/email_text"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginStart="8dp" />
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="86dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="86dp"
                 android:background="@drawable/button_danger"
                 android:padding="4dp"

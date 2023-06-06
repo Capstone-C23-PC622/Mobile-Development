@@ -17,19 +17,19 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_job_pic"
+            android:id="@+id/iv_company_logo"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
             android:layout_marginBottom="8dp"
-            android:contentDescription="@string/job_picture"
-            app:layout_constraintEnd_toStartOf="@id/tv_name"
+            android:contentDescription="@string/company_logo"
+            app:layout_constraintEnd_toStartOf="@id/tv_company_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/tv_company_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -37,52 +37,37 @@
             android:textColor="@color/blue_900"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/tv_description"
+            app:layout_constraintBottom_toTopOf="@id/tv_message"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_job_pic"
+            app:layout_constraintStart_toEndOf="@id/iv_company_logo"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/jobdesc_text" />
+            tools:text="@string/company_name" />
 
         <TextView
-            android:id="@+id/tv_description"
+            android:id="@+id/tv_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="12sp"
             android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_location"
+            app:layout_constraintStart_toEndOf="@id/iv_company_logo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_job_pic"
-            app:layout_constraintTop_toBottomOf="@id/tv_name"
-            tools:text="@string/job_place_text" />
+            app:layout_constraintTop_toBottomOf="@id/tv_company_name"
+            tools:text="@string/message_text" />
 
         <TextView
-            android:id="@+id/tv_location"
+            android:id="@+id/tv_time"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="16dp"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/iv_job_pic"
+            app:layout_constraintStart_toEndOf="@id/iv_company_logo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_description"
-            tools:text="@string/job_location_text" />
-
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="4dp"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_job_pic"
-            app:layout_constraintTop_toBottomOf="@id/tv_location"
-            tools:text="@string/job_date_text" />
+            app:layout_constraintTop_toBottomOf="@id/tv_message"
+            tools:text="@string/job_time_text" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

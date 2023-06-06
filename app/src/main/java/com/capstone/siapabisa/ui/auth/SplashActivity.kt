@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.capstone.siapabisa.MainActivity
+import com.capstone.siapabisa.ui.user.MainActivity
 import com.capstone.siapabisa.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {

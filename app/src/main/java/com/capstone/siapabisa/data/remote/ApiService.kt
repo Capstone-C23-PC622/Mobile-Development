@@ -16,12 +16,12 @@ interface ApiService {
     ): Response<ResponseLogin>
 
     @FormUrlEncoded
-    @POST("user/register")
+    @POST("user/registrasi")
     suspend fun register(
         @Field("username")username:String,
         @Field("email")email:String,
         @Field("password")password:String,
-        @Field("role")role:Int
+        @Field("role")role:String
     ): Response<ResponseRegister>
 
     @FormUrlEncoded

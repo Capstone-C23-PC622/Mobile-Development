@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.user.MainActivity">
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:textColor="@color/black"
+            android:padding="17dp"
             android:background="@drawable/text_input_bg"
             android:drawableStart="@drawable/ic_search"
             />
@@ -48,7 +49,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:marginStart="16dp"
+        android:layout_marginStart="16dp"
         android:text="@string/rekomendasi_text"
         android:textColor="@color/black"
         android:textSize="18sp"
@@ -71,28 +72,28 @@
         app:layout_constraintStart_toEndOf="@+id/tv_rekomendasi_text"
         app:layout_constraintTop_toBottomOf="@+id/et_search_layout" />
 
-    <androidx.recyclerview.widget.RecyclerView
+
+        <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_rekomendasi"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:clipToPadding="false"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:scrollbars="none"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rekomendasi_text"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="100dp"
+
+        app:layout_constraintBottom_toBottomOf="@id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/tv_see_all_rekomendasi"
         tools:listitem="@layout/item_jobs" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
         android:background="@color/blue_900"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemIconSize="@dimen/bottom_nav_icon_size"
         app:itemTextColor="@color/white"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

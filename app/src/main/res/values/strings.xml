@@ -36,4 +36,12 @@
     <string name="search_text">Cari Pekerjaan</string>
     <string name="rekomendasi_text">Rekomendasi</string>
     <string name="lihat_semua_text">Lihat Semua</string>
+    <string name="category_text">kategori</string>
+    <string name="company_logo">Company Logo</string>
+    <string name="company_name">Company Name</string>
+    <string name="message_text">Message Text</string>
+    <string name="job_date_text">Posted</string>
+    <string name="saved_text">Tersimpan</string>
+    <string name="notification_text">Notifikasi</string>
+    <string name="job_time_text">Time</string>
 </resources>
