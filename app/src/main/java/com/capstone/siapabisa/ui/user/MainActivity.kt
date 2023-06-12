@@ -3,15 +3,20 @@ package com.capstone.siapabisa.ui.user
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.capstone.siapabisa.R
 import com.capstone.siapabisa.databinding.ActivityMainBinding
 import com.capstone.siapabisa.di.ViewModelFactory
-import com.capstone.siapabisa.dummy.jobList
 import com.capstone.siapabisa.ui.user.adapter.ListJobAdapter
-import com.capstone.siapabisa.ui.user.adapter.ListMessageAdapter
 import com.capstone.siapabisa.ui.user.viewmodel.MainViewModel
+import com.capstone.siapabisa.data.Result
+import com.capstone.siapabisa.data.remote.model.Job
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,8 +32,25 @@ class MainActivity : AppCompatActivity() {
 
         factory = ViewModelFactory.getInstance(this)
 
+        viewModel.getAllJobs().observe(this){ jobs->
+            when(jobs){
+                is Result.Success->{
+                    setupListJobs(jobs.data)
+                    binding.progressBar.visibility = View.GONE
+                }
+                is Result.Error->{
+                    Log.e("STORIES",jobs.errorMessage)
+                    binding.progressBar.visibility = View.GONE
+                }
+                is Result.Loading->{
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+            }
+        }
+
         setupBottomNav()
-        setupListJobs()
+
+
 
     }
 
@@ -65,13 +87,24 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun setupListJobs(){
-        val layoutMgr = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvRekomendasi.layoutManager = layoutMgr
-        adapter = ListJobAdapter()
-        binding.rvRekomendasi.setHasFixedSize(true)
-        binding.rvRekomendasi.adapter = adapter
+    private fun setupListJobs(listJobs: List<Job>){
+        val listAdapter = ListJobAdapter(listJobs, this, object : ListJobAdapter.JobsListener {
+            override fun onItemClicked(story: Job, ivStory: ImageView, tvName: TextView, tvDescription: TextView, tvDate : TextView) {
+//                val intent = Intent(this@MainActivity, DetailActivity::class.java)
+//                intent.putExtra("data", story)
 
-        adapter.setData(jobList)
+//                val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+//                    this@MainActivity,
+//                    Pair(ivStory, "imageViewStory"),
+//                    Pair(tvName, "nameStory"),
+//                    Pair(tvDate, "dateStory"),
+//                    Pair(tvDescription, "descStory")
+//                )
+//                startActivity(intent, optionsCompat.toBundle())
+            }
+        })
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.rvRekomendasi.adapter = listAdapter
+        binding.rvRekomendasi.layoutManager = layoutManager
     }
 }

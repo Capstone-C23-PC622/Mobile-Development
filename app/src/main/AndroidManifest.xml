@@ -15,6 +15,24 @@
         android:theme="@style/Theme.SiapaBisa"
         tools:targetApi="31">
         <activity
+            android:name=".ui.user.DetailLokerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.BiodataActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.usaha.UsahaMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.usaha.UsahaNotificationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.usaha.UsahaLokerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.usaha.UsahaActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.user.NotificationActivity"
             android:exported="false" />
         <activity
@@ -46,14 +64,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.user.MainActivity"
-            android:exported="true" >
-
-
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>

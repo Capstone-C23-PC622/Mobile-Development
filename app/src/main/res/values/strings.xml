@@ -26,7 +26,7 @@
     <string name="job_location_text">Location</string>
     <string name="akun_text">Pengaturan Akun</string>
     <string name="pendidikan_terakhir">Pendidikan Terakhir</string>
-    <string name="pengalamman_text">Pengalaman</string>
+    <string name="pengalaman_text">Pengalaman</string>
     <string name="keterampilan_text">Keterampilan</string>
     <string name="peminatan_text">Peminatan</string>
     <string name="deskripsi_text">Deskripsi Diri</string>
@@ -44,4 +44,10 @@
     <string name="saved_text">Tersimpan</string>
     <string name="notification_text">Notifikasi</string>
     <string name="job_time_text">Time</string>
+    <string name="text_usaha_saya">Lowongan Saya</string>
+    <string name="isi_data_diri">Isi Data Diri</string>
+    <string name="simpan_text">Simpan</string>
+    <string name="loker_saya">Loker Saya</string>
+    <string name="text_no_data">Anda tidak memiliki lowongan kerja</string>
+    <string name="buat_loker">Buat Lowongan</string>
 </resources>
