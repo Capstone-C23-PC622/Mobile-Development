@@ -4,7 +4,9 @@ import com.capstone.siapabisa.data.remote.model.Birthday
 import retrofit2.Response
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 
 interface ApiService {
@@ -24,6 +26,11 @@ interface ApiService {
         @Field("role")role:String
     ): Response<ResponseRegister>
 
+    @GET("/user/biodata/{userid}")
+    suspend fun getBiodata(
+        @Path("userid")userid:String
+    ): Response<ResponseBiodata>
+
     @FormUrlEncoded
     @POST("user/biodata")
     suspend fun submitBiodata(
@@ -35,7 +42,10 @@ interface ApiService {
         @Field("pengalaman")pengalaman:String,
         @Field("keterampilan")keterampilan:String,
         @Field("peminatan")peminatan:String
-    ) : Response<ResponseSubmitBiodata>
+    ): Response<ResponseSubmitBiodata>
+
+    @GET("pengusaha/loker")
+    suspend fun getAllJobs(): Response<ResponseJobs>
 
 
 }

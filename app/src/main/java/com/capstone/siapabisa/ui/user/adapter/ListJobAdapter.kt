@@ -1,49 +1,47 @@
 package com.capstone.siapabisa.ui.user.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.capstone.siapabisa.data.remote.model.Job
 import com.capstone.siapabisa.databinding.ItemJobsBinding
-import com.capstone.siapabisa.dummy.Jobs
 
-class ListJobAdapter(
-    private val data: MutableList<Jobs> = mutableListOf()
-) :
-    RecyclerView.Adapter<ListJobAdapter.UserViewHolder>() {
+class ListJobAdapter(private val listJobs:List<Job>,
+                     val context: Context,
+                     private val listener:JobsListener) : RecyclerView.Adapter<ListJobAdapter.ViewHolder>() {
 
-    fun setData(data: List<Jobs>) {
-        this.data.clear()
-        this.data.addAll(data)
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemJobsBinding
+            .inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
-    class UserViewHolder(private val binding: ItemJobsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(job: Jobs) {
-            Glide.with(itemView.context)
-                .load(job.imageUrl)
-                .into(binding.ivJobPic)
-            binding.tvName.text = job.namaPerusahaan
-            binding.tvDescription.text = job.jenisLowongan
-            binding.tvDate.text = job.datePosted
-            binding.tvLocation.text = job.lokasi
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val job = listJobs[position]
+
+        holder.binding.apply {
+            tvName.text = job.namaPerusahaan
+            tvDescription.text = job.jenisLowongan
+            tvDate.text = job.updatedAt
+
+            Glide.with(context)
+                .load(job.image)
+                .into(ivJobPic)
+        }
+        holder.itemView.setOnClickListener {
+            listener.onItemClicked(job, holder.binding.ivJobPic, holder.binding.tvName, holder.binding.tvDescription, holder.binding.tvDate)
 
 
-            binding.cardView.setOnClickListener {
-//                 val intent = Intent(itemView.context, DetailActivity::class.java)
-//                 intent.putExtra(DetailActivity.EXTRA_DATA, job)
-//                 itemView.context.startActivity(intent)
-            }
         }
     }
+    override fun getItemCount() = listJobs.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder =
-        UserViewHolder(ItemJobsBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    class ViewHolder(val binding:ItemJobsBinding): RecyclerView.ViewHolder(binding.root)
 
-    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val item = data[position]
-        holder.bind(item)
-    }
-
-    override fun getItemCount(): Int = data.size
+    interface JobsListener{fun onItemClicked(job: Job, ivJobPic: ImageView, tvName: TextView, tvDescription: TextView, tvDate: TextView)}
 }
