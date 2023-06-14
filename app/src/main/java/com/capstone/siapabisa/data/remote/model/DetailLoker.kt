@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Job(
+data class DetailLoker(
 
     @field:SerializedName("image")
     val image: String? = null,
@@ -45,4 +45,5 @@ data class Job(
 
     @field:SerializedName("updatedAt")
     val updatedAt: String? = null
-) : Parcelable
+)
+: Parcelable

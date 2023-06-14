@@ -50,4 +50,24 @@
     <string name="loker_saya">Loker Saya</string>
     <string name="text_no_data">Anda tidak memiliki lowongan kerja</string>
     <string name="buat_loker">Buat Lowongan</string>
+    <string name="text_detail_loker">Detail Lowongan</string>
+    <string name="nama_perusahaan">Company Name</string>
+    <string name="address">Lokasi :</string>
+    <string name="descriptionjob">Jenis Lowongan :</string>
+    <string name="descriptionposition">kami membutuhkan karyawan untuk Posisi :</string>
+    <string name="position">posisi</string>
+    <string name="requirement">Syarat :</string>
+    <string name="min_requirement">pendidikan :</string>
+    <string name="experience">Pengalaman :</string>
+    <string name="postedAt_text">Diposting pada</string>
+    <string name="lamar_text">Lamar</string>
+    <string name="text_loker">Buka Lowongan</string>
+    <string name="name_loker_text">Peran Lowongan</string>
+    <string name="loker_deskripsi_text">Deskripsi Lowongan</string>
+    <string name="pendidikan_loker">Minimum Pendidikan</string>
+    <string name="pengalaman_loker">Minimum Pengalaman</string>
+    <string name="image_from_camera">Kamera</string>
+    <string name="image_from_gallery">Tambah Gambar</string>
+    <string name="deskripsi_singkat">Deskripsi Singkat</string>
+    <string name="jenis_loker">Jenis Lowongan</string>
 </resources>

@@ -10,6 +10,7 @@ import com.capstone.siapabisa.data.remote.ResponseBiodata
 import com.capstone.siapabisa.data.remote.ResponseRegister
 import com.capstone.siapabisa.data.remote.ResponseSubmitBiodata
 import com.capstone.siapabisa.data.remote.model.Birthday
+import com.capstone.siapabisa.data.remote.model.DetailLoker
 import com.capstone.siapabisa.data.remote.model.Job
 import com.capstone.siapabisa.dummy.Jobs
 import com.capstone.siapabisa.dummy.jobList
@@ -139,6 +140,23 @@ class Repository(private val apiService: ApiService, private val context: Contex
             result.value = Result.Error(e.message.toString())
         }
         return result
+    }
+
+    suspend fun getJob(id:String):LiveData<Result<DetailLoker>> {
+        val result = MutableLiveData<Result<DetailLoker>>()
+        result.value = Result.Loading
+
+        try{
+            val response = apiService.getJob(id)
+            if (response.isSuccessful) {
+                val job = response.body()!!.data
+                result.value = Result.Success(job)
+            }
+        } catch (e: Exception) {
+            result.value = Result.Error(e.message.toString())
+        }
+        return result
+
     }
 
 
