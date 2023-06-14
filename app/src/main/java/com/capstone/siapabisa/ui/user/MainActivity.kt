@@ -17,6 +17,7 @@ import com.capstone.siapabisa.ui.user.adapter.ListJobAdapter
 import com.capstone.siapabisa.ui.user.viewmodel.MainViewModel
 import com.capstone.siapabisa.data.Result
 import com.capstone.siapabisa.data.remote.model.Job
+import androidx.core.util.Pair
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,8 +50,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         setupBottomNav()
-
-
 
     }
 
@@ -89,18 +88,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupListJobs(listJobs: List<Job>){
         val listAdapter = ListJobAdapter(listJobs, this, object : ListJobAdapter.JobsListener {
-            override fun onItemClicked(story: Job, ivStory: ImageView, tvName: TextView, tvDescription: TextView, tvDate : TextView) {
-//                val intent = Intent(this@MainActivity, DetailActivity::class.java)
-//                intent.putExtra("data", story)
+            override fun onItemClicked(job: Job, ivJobPic: ImageView, tvName: TextView, tvDescription: TextView, tvDate : TextView) {
+                val intent = Intent(this@MainActivity, DetailLokerActivity::class.java)
+                intent.putExtra("data", job)
 
-//                val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-//                    this@MainActivity,
-//                    Pair(ivStory, "imageViewStory"),
-//                    Pair(tvName, "nameStory"),
-//                    Pair(tvDate, "dateStory"),
-//                    Pair(tvDescription, "descStory")
-//                )
-//                startActivity(intent, optionsCompat.toBundle())
+                val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                    this@MainActivity,
+                    Pair(ivJobPic, "ivJobPic"),
+                    Pair(tvName, "tvUsaha"),
+                    Pair(tvDate, "tvPostedAt"),
+                    Pair(tvDescription, "tvDescription")
+                )
+                startActivity(intent, optionsCompat.toBundle())
+
+
             }
         })
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)

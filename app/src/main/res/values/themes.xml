@@ -1,11 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.SiapaBisa" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.SiapaBisa" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">#FF013F6B</item>
         <item name="colorSecondaryContainer">#FF013F6B</item>
         <item name="colorControlHighlight">#FFFFCF00</item>
         <item name="android:statusBarColor">@color/blue_900</item>
         <item name="android:navigationBarColor" >@color/blue_900</item>
+        <item name="android:windowActivityTransitions">true</item>
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>

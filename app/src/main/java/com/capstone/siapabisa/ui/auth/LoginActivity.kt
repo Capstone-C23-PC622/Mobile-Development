@@ -15,8 +15,10 @@ import com.capstone.siapabisa.util.checkPassword
 import com.capstone.siapabisa.util.checkUsername
 import com.capstone.siapabisa.data.Result
 import com.capstone.siapabisa.data.local.LoginPreferences
+import com.capstone.siapabisa.ui.usaha.UsahaActivity
+import com.capstone.siapabisa.ui.usaha.UsahaMainActivity
+import com.capstone.siapabisa.ui.usaha.UsahaNewLoker
 import com.capstone.siapabisa.ui.user.MainActivity
-import com.capstone.siapabisa.ui.user.UserActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.isEnabled = false
 
         val loginPref = LoginPreferences(this)
-        loginPref.clearToken()
+        loginPref.clearData()
 
         checkValid()
 
@@ -61,11 +63,23 @@ class LoginActivity : AppCompatActivity() {
                 is Result.Success->{
                     val loginPref = LoginPreferences(this)
                     login.data.token?.let { loginPref.setToken(it) }
+                    login.data.user?.id?.let { loginPref.setUserId(it) }
+                    login.data.user?.role?.let { loginPref.setUserRole(it) }
+
                     Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     binding.progressBar.visibility = View.GONE
-                    startActivity(intent)
+
+                    if(login.data.user?.role == 1){
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+                    if(login.data.user?.role == 2){
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        val intent = Intent(this, UsahaMainActivity::class.java)
+                        startActivity(intent)
+                    }
+
                 }
                 is Result.Error->{
                     binding.progressBar.visibility = View.GONE

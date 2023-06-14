@@ -1,6 +1,7 @@
 package com.capstone.siapabisa.data.remote
 
 import com.capstone.siapabisa.data.remote.model.Biodata
+import com.capstone.siapabisa.data.remote.model.DetailLoker
 import com.capstone.siapabisa.data.remote.model.Job
 import com.capstone.siapabisa.data.remote.model.Login
 import com.google.gson.annotations.SerializedName
@@ -69,6 +70,24 @@ data class ResponseJobs(
 
     @field:SerializedName("data")
     val data: List<Job>,
+
+    @field:SerializedName("isVerified")
+    val isVerified: Boolean? = null,
+
+    @field:SerializedName("error")
+    val error: Boolean? = null,
+
+    @field:SerializedName("message")
+    val message: String? = null,
+
+    @field:SerializedName("status")
+    val status: Int? = null
+)
+
+data class ResponseDetail(
+
+    @field:SerializedName("data")
+    val data: DetailLoker,
 
     @field:SerializedName("isVerified")
     val isVerified: Boolean? = null,

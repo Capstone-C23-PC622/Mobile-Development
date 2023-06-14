@@ -47,5 +47,9 @@ interface ApiService {
     @GET("pengusaha/loker")
     suspend fun getAllJobs(): Response<ResponseJobs>
 
+    @GET("pengusaha/loker/{id}")
+    suspend fun getJob(
+        @Path("id")id:String
+    ): Response<ResponseDetail>
 
 }

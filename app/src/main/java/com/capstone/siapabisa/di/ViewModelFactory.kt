@@ -6,7 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.capstone.siapabisa.data.Repository
 import com.capstone.siapabisa.ui.auth.viewmodel.LoginViewModel
 import com.capstone.siapabisa.ui.auth.viewmodel.RegisterViewModel
+import com.capstone.siapabisa.ui.usaha.viewmodel.NewLokerViewModel
 import com.capstone.siapabisa.ui.user.viewmodel.BiodataViewModel
+import com.capstone.siapabisa.ui.user.viewmodel.DetailViewModel
 import com.capstone.siapabisa.ui.user.viewmodel.MainViewModel
 import com.capstone.siapabisa.ui.user.viewmodel.UserViewModel
 
@@ -29,6 +31,12 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             }
             modelClass.isAssignableFrom(BiodataViewModel::class.java) -> {
                 return BiodataViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
+                return DetailViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(NewLokerViewModel::class.java) -> {
+                return NewLokerViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
