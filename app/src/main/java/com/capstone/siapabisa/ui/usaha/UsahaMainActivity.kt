@@ -19,6 +19,11 @@ class UsahaMainActivity : AppCompatActivity() {
 
         factory = ViewModelFactory.getInstance(this)
         setupBottomNav()
+
+        binding.btnAddLoker.setOnClickListener {
+            startActivity(Intent(this, UsahaNewLoker::class.java))
+        }
+
     }
 
 
@@ -35,7 +40,7 @@ class UsahaMainActivity : AppCompatActivity() {
 //                }
 
                 R.id.my_usaha -> {
-                    startActivity(Intent(this, UsahaMainActivity::class.java))
+                    startActivity(Intent(this, UsahaLokerActivity::class.java))
                     true
                 }
 

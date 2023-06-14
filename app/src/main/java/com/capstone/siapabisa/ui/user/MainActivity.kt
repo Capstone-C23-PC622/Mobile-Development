@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
                     binding.progressBar.visibility = View.GONE
                 }
                 is Result.Error->{
-                    Log.e("STORIES",jobs.errorMessage)
                     binding.progressBar.visibility = View.GONE
                 }
                 is Result.Loading->{
@@ -48,6 +47,11 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+    binding.btnSearch.setOnClickListener {
+        val intent = Intent(this, SearchActivity::class.java)
+        startActivity(intent)
+    }
 
         setupBottomNav()
 
@@ -105,7 +109,8 @@ class MainActivity : AppCompatActivity() {
             }
         })
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvRekomendasi.adapter = listAdapter
+        adapter = listAdapter
+        binding.rvRekomendasi.adapter = adapter
         binding.rvRekomendasi.layoutManager = layoutManager
     }
 }

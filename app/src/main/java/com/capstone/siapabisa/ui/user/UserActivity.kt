@@ -33,6 +33,12 @@ class UserActivity : AppCompatActivity() {
             startActivity(Intent(this, BiodataActivity::class.java))
         }
 
+        binding.btnLogout.setOnClickListener{
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 

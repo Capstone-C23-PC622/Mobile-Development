@@ -70,4 +70,5 @@
     <string name="image_from_gallery">Tambah Gambar</string>
     <string name="deskripsi_singkat">Deskripsi Singkat</string>
     <string name="jenis_loker">Jenis Lowongan</string>
+    <string name="cari_text">Cari Lowongan</string>
 </resources>

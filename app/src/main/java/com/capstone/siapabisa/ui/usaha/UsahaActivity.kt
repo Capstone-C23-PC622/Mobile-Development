@@ -34,7 +34,7 @@ class UsahaActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    startActivity(Intent(this, UsahaActivity::class.java))
+                    startActivity(Intent(this, UsahaMainActivity::class.java))
                     true
                 }
 

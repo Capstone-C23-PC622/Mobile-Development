@@ -29,12 +29,12 @@ class UsahaNotificationActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home -> {
-                    startActivity(Intent(this, UsahaActivity::class.java))
+                    startActivity(Intent(this, UsahaMainActivity::class.java))
                     true
                 }
 
                 R.id.my_usaha -> {
-                    startActivity(Intent(this, UsahaMainActivity::class.java))
+                    startActivity(Intent(this, UsahaLokerActivity::class.java))
                     true
                 }
 

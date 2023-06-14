@@ -1,4 +1,4 @@
-package com.capstone.siapabisa.ui.user.adapter
+package com.capstone.siapabisa.ui.usaha.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,24 +10,19 @@ import com.bumptech.glide.Glide
 import com.capstone.siapabisa.data.remote.model.Job
 import com.capstone.siapabisa.databinding.ItemJobsBinding
 
-class ListJobAdapter(private val jobs: List<Job>,
+class ListJobUsahaAdapter(private var listJobs:List<Job>,
                      val context: Context,
-                     private val listener:JobsListener) : RecyclerView.Adapter<ListJobAdapter.ViewHolder>() {
+                     private val listener:JobsListener, private val userId: String) : RecyclerView.Adapter<ListJobUsahaAdapter.ViewHolder>() {
 
-    private var originalJobs: List<Job> = jobs
-    private var listJobs: List<Job> = ArrayList(jobs)
-
-    fun search(query: String) {
-        val lowerCaseQuery = query.lowercase()
-        listJobs = originalJobs.filter { job ->
-            job.namaPerusahaan?.lowercase()?.contains(lowerCaseQuery) == true ||
-                    job.jenisLowongan?.lowercase()?.contains(lowerCaseQuery) == true ||
-                    job.lowongan?.lowercase()?.contains(lowerCaseQuery) == true
-        }
-
-        notifyDataSetChanged()
-
+    init {
+        filterJobsByUser()
     }
+
+    private fun filterJobsByUser() {
+        listJobs = listJobs.filter { it.userId == userId }
+        notifyDataSetChanged()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemJobsBinding
@@ -57,7 +52,7 @@ class ListJobAdapter(private val jobs: List<Job>,
     }
     override fun getItemCount() = listJobs.size
 
-    class ViewHolder(val binding:ItemJobsBinding): RecyclerView.ViewHolder(binding.root)
+    class ViewHolder(val binding: ItemJobsBinding): RecyclerView.ViewHolder(binding.root)
 
     interface JobsListener{fun onItemClicked(job: Job, ivJobPic: ImageView, tvName: TextView, tvDescription: TextView, tvDate: TextView)}
 }
