@@ -103,7 +103,7 @@
                 app:boxStrokeWidth="5dp">
 
                 <com.capstone.siapabisa.ui.custom.UsernameEditText
-                    android:id="@+id/et_biodata_address"
+                    android:id="@+id/et_profile_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/text_input_bg"

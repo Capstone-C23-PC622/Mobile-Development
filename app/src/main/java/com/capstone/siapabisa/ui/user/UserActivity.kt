@@ -14,12 +14,17 @@ import com.capstone.siapabisa.ui.user.viewmodel.UserViewModel
 import com.capstone.siapabisa.data.Result
 import com.capstone.siapabisa.data.local.LoginPreferences
 import com.capstone.siapabisa.ui.auth.LoginActivity
+import com.capstone.siapabisa.ui.auth.LoginRegister
+import com.capstone.siapabisa.ui.usaha.UsahaBiodataActivity
+import com.capstone.siapabisa.ui.usaha.UsahaMainActivity
 
 class UserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserBinding
     private lateinit var factory: ViewModelFactory
     private val viewModel: UserViewModel by viewModels {factory}
+
+    private lateinit var biodataId:String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,13 +36,19 @@ class UserActivity : AppCompatActivity() {
         setupBottomNav()
         setupBiodata()
 
-        binding.btnBiodata.setOnClickListener{
-            startActivity(Intent(this, BiodataActivity::class.java))
+
+
+        binding.btnLogout.setOnClickListener {
+            val intent = Intent(this, LoginRegister::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
+            startActivity(intent)
+            finish()
         }
 
-        binding.btnLogout.setOnClickListener{
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            val intent = Intent(this, LoginActivity::class.java)
+        binding.btnBiodata.setOnClickListener{
+            val intent = Intent(this, BiodataActivity::class.java)
+            intent.putExtra("action", "edit")
+            intent.putExtra("biodataId", biodataId)
             startActivity(intent)
         }
 
@@ -68,6 +79,10 @@ class UserActivity : AppCompatActivity() {
                 binding.tvUsername.text = username
                 binding.tvEmail.text = email
 
+                biodataId = biodata.data.biodata?.id.toString()
+
+
+
 
             }
             is Result.Loading -> {
@@ -75,8 +90,12 @@ class UserActivity : AppCompatActivity() {
 
             }
             is Result.Error -> {
-                Toast.makeText(this, biodata.errorMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "anda belum mengisi biodata", Toast.LENGTH_SHORT).show()
                 Log.d("Error", biodata.errorMessage.toString())
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                val intent = Intent(this, BiodataActivity::class.java)
+                intent.putExtra("action","submit")
+                startActivity(intent)
 
             }
         } }

@@ -76,4 +76,5 @@
     <string name="usaha_deskripsi_text">Deskripsi Usaha</string>
     <string name="usaha_profil_text">Profil Usaha</string>
     <string name="keterampilan_loker">Peferensi Keterampilan</string>
+    <string name="tutup_loker">Tutup Lowongan</string>
 </resources>

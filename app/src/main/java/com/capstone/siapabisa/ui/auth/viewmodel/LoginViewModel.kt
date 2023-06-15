@@ -13,8 +13,7 @@ class LoginViewModel(private val repository: Repository): ViewModel() {
     private val _responseLogin = repository.responseLogin
     val responseLogin: LiveData<Result<Login>> = _responseLogin
 
-    private val _responseCheckBiodata = repository.responseCheckBiodata
-    val responseCheckBiodata: LiveData<Boolean> = _responseCheckBiodata
+
     fun login(username : String, password : String){
         viewModelScope.launch{
             repository.login(username, password)
@@ -22,10 +21,6 @@ class LoginViewModel(private val repository: Repository): ViewModel() {
 
     }
 
-    fun checkBiodata(userid:String){
-        viewModelScope.launch{
-            repository.checkBiodata(userid)
-        }
-    }
+
 
 }

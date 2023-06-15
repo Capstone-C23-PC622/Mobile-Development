@@ -8,20 +8,31 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.capstone.siapabisa.R
+import com.capstone.siapabisa.data.Result
+import com.capstone.siapabisa.data.local.LoginPreferences
 import com.capstone.siapabisa.data.remote.model.enumJenis
 import com.capstone.siapabisa.data.remote.model.enumPendidikan
 import com.capstone.siapabisa.data.remote.model.enumPengalaman
 import com.capstone.siapabisa.databinding.ActivityUsahaNewLokerBinding
 import com.capstone.siapabisa.di.ViewModelFactory
+import com.capstone.siapabisa.ui.usaha.viewmodel.NewLokerViewModel
+import com.capstone.siapabisa.util.reduceFileImage
 import com.capstone.siapabisa.util.uriToFile
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class UsahaNewLoker : AppCompatActivity(),AdapterView.OnItemSelectedListener {
@@ -29,9 +40,15 @@ class UsahaNewLoker : AppCompatActivity(),AdapterView.OnItemSelectedListener {
     private lateinit var binding: ActivityUsahaNewLokerBinding
     private lateinit var factory: ViewModelFactory
 
+    private val viewModel: NewLokerViewModel by viewModels {factory}
+
     private var selectedPendidikan = ""
     private var selectedPengalaman = ""
     private var selectedJenis = ""
+
+    private var usahaId = ""
+    private var namaPerusahaan = ""
+    private var alamatPerusahaan = ""
 
     private var getFile: File? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +61,7 @@ class UsahaNewLoker : AppCompatActivity(),AdapterView.OnItemSelectedListener {
         binding.btnSubmit.isEnabled = false
 
         setupSpinners()
+        checkProfil()
 
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
@@ -55,6 +73,30 @@ class UsahaNewLoker : AppCompatActivity(),AdapterView.OnItemSelectedListener {
 
         binding.btnGallery.setOnClickListener(){
             startGallery()
+        }
+
+        binding.btnSubmit.setOnClickListener(){
+            uploadImage()
+            binding.progressBar.visibility = View.VISIBLE
+            viewModel._responsePostLoker.observe(this){response ->
+                when(response){
+                    is Result.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(this, "Berhasil menambahkan lowongan kerja", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                    is Result.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(this, response.errorMessage, Toast.LENGTH_SHORT).show()
+                        Log.d("UPLOAD", "UPLOAD IMAGE: ${response.errorMessage}")
+                    }
+                    is Result.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                        Toast.makeText(this, "Uploading", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            }
         }
 
         binding.etLokerDeskripsi.addTextChangedListener(object : TextWatcher {
@@ -162,6 +204,73 @@ class UsahaNewLoker : AppCompatActivity(),AdapterView.OnItemSelectedListener {
         intent.type = "image/*"
         val chooser = Intent.createChooser(intent, "Choose a Picture")
         launcherIntentGallery.launch(chooser)
+    }
+
+    private fun checkProfil(){
+        val preferences = LoginPreferences(this)
+        val userId = preferences.getUserId()
+        usahaId = userId.toString()
+
+
+        Log.d("userId", userId.toString()   )
+
+        if (userId != null) {
+            viewModel.getProfilUsaha(userId)
+            viewModel.responseProfilUsaha.observe(this){profil -> when(profil){
+                is Result.Success->{
+                    namaPerusahaan = profil.data.data?.namaUsaha.toString()
+                    alamatPerusahaan = profil.data.data?.alamat.toString()
+                    Toast.makeText(this, "Selamat Datang", Toast.LENGTH_SHORT).show()
+                }
+                is Result.Error->{
+                    Toast.makeText(this, "Anda belum mengisi profil", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, UsahaBiodataActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
+                    startActivity(intent)
+                    finish()
+                }
+                is Result.Loading->{
+
+                }
+            }
+            }
+        }
+    }
+
+    private fun uploadImage() {
+        val prefLogin = LoginPreferences(this)
+        val userId = prefLogin.getUserId()
+
+        val name = namaPerusahaan
+        val alamat = alamatPerusahaan
+        val deskripsi = binding.etLokerDeskripsi.text?.trim().toString()
+        val lowongan = binding.etLokerRole.text?.trim().toString()
+        val jenisLowongan = selectedJenis
+        val pendidikan = selectedPendidikan
+        val pengalaman = selectedPengalaman
+
+
+        val file = reduceFileImage(getFile as File)
+        val userIdBody = userId?.toRequestBody("text/plain".toMediaType())
+        val deskripsiBody = deskripsi.toRequestBody("text/plain".toMediaType())
+        val nameBody = name.toRequestBody("text/plain".toMediaType())
+        val alamatBody = alamat.toRequestBody("text/plain".toMediaType())
+        val lowonganBody = lowongan.toRequestBody("text/plain".toMediaType())
+        val jenisLowonganBody = jenisLowongan.toRequestBody("text/plain".toMediaType())
+        val pendidikanBody = pendidikan.toRequestBody("text/plain".toMediaType())
+        val pengalamanBody = pengalaman.toRequestBody("text/plain".toMediaType())
+        val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+        val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+            "image",
+            file.name,
+            requestImageFile
+        )
+
+
+        if (userIdBody != null) {
+            viewModel.postLoker(userIdBody,nameBody,lowonganBody,jenisLowonganBody,pendidikanBody,pengalamanBody,alamatBody,deskripsiBody,imageMultipart)
+        }
+
     }
 
     override fun onRequestPermissionsResult(

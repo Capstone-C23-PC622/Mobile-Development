@@ -16,7 +16,9 @@ import com.capstone.siapabisa.databinding.ActivityUsahaBinding
 import com.capstone.siapabisa.databinding.ActivityUsahaNewLokerBinding
 import com.capstone.siapabisa.di.ViewModelFactory
 import com.capstone.siapabisa.ui.auth.LoginActivity
+import com.capstone.siapabisa.ui.auth.LoginRegister
 import com.capstone.siapabisa.ui.usaha.viewmodel.UsahaViewModel
+import com.capstone.siapabisa.ui.user.BiodataActivity
 import com.capstone.siapabisa.ui.user.MainActivity
 import com.capstone.siapabisa.ui.user.NotificationActivity
 import com.capstone.siapabisa.ui.user.SavedActivity
@@ -39,14 +41,13 @@ class UsahaActivity : AppCompatActivity() {
         setupBottomNav()
         setupBiodata()
 
-        binding.btnProfile.setOnClickListener{
-            startActivity(Intent(this, UsahaBiodataActivity::class.java))
-        }
 
-        binding.btnLogout.setOnClickListener{
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            val intent = Intent(this, LoginActivity::class.java)
+
+        binding.btnLogout.setOnClickListener {
+            val intent = Intent(this, LoginRegister::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
             startActivity(intent)
+            finish()
         }
     }
 
@@ -58,6 +59,7 @@ class UsahaActivity : AppCompatActivity() {
 
         if (userId != null) {
             viewModel.getProfilUsaha(userId)
+            Log.d("userId", userId)
         }
 
         viewModel.responseProfilUsaha.observe(this){profil -> when(profil){
@@ -67,12 +69,17 @@ class UsahaActivity : AppCompatActivity() {
                 binding.tvBidang.text = profil.data.data?.bidangUsaha
                 binding.tvDeskripsi.text = profil.data.data?.deskripsiUsaha
 
-                Glide.with(this)
-                    .load(profil.data.data?.image)
-                    .into(binding.ivProfile)
+
 
                 binding.tvUsername.text = username
                 binding.tvEmail.text = email
+
+                binding.btnProfile.setOnClickListener{
+                    val intent = Intent(this, UsahaBiodataActivity::class.java)
+                    intent.putExtra("action", "edit")
+                    intent.putExtra("biodataId", profil.data.data?.id)
+                    startActivity(intent)
+                }
 
 
             }
@@ -81,8 +88,13 @@ class UsahaActivity : AppCompatActivity() {
 
             }
             is Result.Error -> {
-                Toast.makeText(this, profil.errorMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "anda belum mengisi profil", Toast.LENGTH_SHORT).show()
                 Log.d("Error", profil.errorMessage.toString())
+
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                val intent = Intent(this, UsahaBiodataActivity::class.java)
+                intent.putExtra("action","submit")
+                startActivity(intent)
 
             }
         } }

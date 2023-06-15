@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.capstone.siapabisa.data.remote.model.Job
 import com.capstone.siapabisa.databinding.ItemJobsBinding
+import com.capstone.siapabisa.util.formatDate
 
 class ListJobAdapter(private val jobs: List<Job>,
                      val context: Context,
@@ -43,7 +44,7 @@ class ListJobAdapter(private val jobs: List<Job>,
         holder.binding.apply {
             tvName.text = job.namaPerusahaan
             tvDescription.text = job.jenisLowongan
-            tvDate.text = job.updatedAt
+            tvDate.text = job.createdAt?.let { formatDate(it) }
 
             Glide.with(context)
                 .load(job.image)
