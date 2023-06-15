@@ -43,6 +43,9 @@ class BiodataActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
         setupSpinners()
         checkValid()
 
+        val preferences = LoginPreferences(this)
+        val userId = preferences.getUserId().toString()
+
         binding.btnSubmit.setOnClickListener{
             val name = binding.etBiodataName.text?.trim().toString()
             val alamat = binding.etBiodataAddress.text?.trim().toString()
@@ -51,7 +54,7 @@ class BiodataActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
             val birthday = Birthday(11,9,2001)
 
             binding.progressBar.visibility = View.VISIBLE
-            viewModel.submitBiodata(name,birthday, alamat, deskripsi, selectedPendidikan, selectedPengalaman, selectedKeterampilan, selectedPeminatan)
+            viewModel.submitBiodata(userId, name,birthday, alamat, deskripsi, selectedPendidikan, selectedPengalaman, selectedKeterampilan, selectedPeminatan)
 
             try{
                 submitBiodata()

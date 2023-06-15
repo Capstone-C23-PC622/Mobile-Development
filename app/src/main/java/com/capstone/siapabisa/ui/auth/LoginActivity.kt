@@ -65,6 +65,8 @@ class LoginActivity : AppCompatActivity() {
                     login.data.token?.let { loginPref.setToken(it) }
                     login.data.user?.id?.let { loginPref.setUserId(it) }
                     login.data.user?.role?.let { loginPref.setUserRole(it) }
+                    login.data.user?.email?.let { loginPref.setUserEmail(it) }
+                    login.data.user?.username?.let { loginPref.setUsername(it) }
 
                     Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show()
                     binding.progressBar.visibility = View.GONE

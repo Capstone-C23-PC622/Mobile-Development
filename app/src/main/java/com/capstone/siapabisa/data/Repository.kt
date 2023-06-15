@@ -1,14 +1,21 @@
 package com.capstone.siapabisa.data
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.capstone.siapabisa.data.remote.model.Login
 import com.capstone.siapabisa.data.remote.ApiConfig
 import com.capstone.siapabisa.data.remote.ApiService
 import com.capstone.siapabisa.data.remote.ResponseBiodata
+import com.capstone.siapabisa.data.remote.ResponseEditBiodata
+import com.capstone.siapabisa.data.remote.ResponseProfilUsaha
 import com.capstone.siapabisa.data.remote.ResponseRegister
 import com.capstone.siapabisa.data.remote.ResponseSubmitBiodata
+import com.capstone.siapabisa.data.remote.model.BiodataEdit
+import com.capstone.siapabisa.data.remote.model.BiodataEditData
+import com.capstone.siapabisa.data.remote.model.BiodataSubmit
+import com.capstone.siapabisa.data.remote.model.BiodataSubmitData
 import com.capstone.siapabisa.data.remote.model.Birthday
 import com.capstone.siapabisa.data.remote.model.DetailLoker
 import com.capstone.siapabisa.data.remote.model.Job
@@ -31,6 +38,14 @@ class Repository(private val apiService: ApiService, private val context: Contex
 
     private val _responseSubmitBiodata = MutableLiveData<Result<ResponseSubmitBiodata>>()
     val responseSubmitBiodata: LiveData<Result<ResponseSubmitBiodata>> = _responseSubmitBiodata
+
+    private val _responseEditBiodata = MutableLiveData<Result<ResponseEditBiodata>>()
+    val responseEditBiodata: LiveData<Result<ResponseEditBiodata>> = _responseEditBiodata
+
+    private val _responseProfilUsaha = MutableLiveData<Result<ResponseProfilUsaha>>()
+    val responseProfilUsaha: LiveData<Result<ResponseProfilUsaha>> = _responseProfilUsaha
+
+
 
     suspend fun login(username : String, password : String){
         try {
@@ -80,28 +95,13 @@ class Repository(private val apiService: ApiService, private val context: Contex
         }
     }
 
-    suspend fun checkBiodata(userid:String){
+    suspend fun submitBiodata(userId : String,nama : String, birthday : Birthday, alamat : String, deskripsiDiri : String, pendidikan : String, pengalaman : String, keterampilan : String, peminatan : String){
         try {
-            val response = ApiConfig.getApiService().getBiodata(userid)
-            if (response.isSuccessful) {
-                val result = response.body()
-                result?.error.let{
-                    _responseCheckBiodata.value = it
-                }
-            } else {
-                _responseCheckBiodata.value = true
-            }
-        } catch (e: Exception) {
-            _responseBiodata.value = Result.Error(e.message.toString())
-        }
-        catch(e: Exception){
-            _responseBiodata.value = Result.Error(e.message.toString())
-        }
-    }
 
-    suspend fun submitBiodata(nama : String, birthday : Birthday, alamat : String, deskripsiDiri : String, pendidikan : String, pengalaman : String, keterampilan : String, peminatan : String){
-        try {
-            val response = ApiConfig.getApiService().submitBiodata(nama, birthday, alamat, deskripsiDiri, pendidikan, pengalaman, keterampilan, peminatan)
+            val biodataInner = BiodataSubmitData(nama,birthday)
+            val biodataBody = BiodataSubmit(userId,biodataInner,alamat,deskripsiDiri,pendidikan,pengalaman,keterampilan,peminatan)
+
+            val response = ApiConfig.getApiService().submitBiodata(biodataBody)
             if (response.isSuccessful) {
                 val result = response.body()
                 result?.let{
@@ -112,6 +112,26 @@ class Repository(private val apiService: ApiService, private val context: Contex
             }
         } catch (e: Exception) {
             _responseSubmitBiodata.value = Result.Error(e.message.toString())
+        }
+    }
+
+    suspend fun editBiodata(id:String,nama: String, birthday : Birthday, alamat : String, deskripsiDiri : String, pendidikan : String, pengalaman : String, keterampilan : String, peminatan : String){
+        try {
+
+            val biodataInner = BiodataEditData(nama,birthday)
+            val biodataBody = BiodataEdit(id,biodataInner,alamat,deskripsiDiri,pendidikan,pengalaman,keterampilan,peminatan)
+
+            val response = ApiConfig.getApiService().editBiodata(biodataBody)
+            if (response.isSuccessful) {
+                val result = response.body()
+                result?.let{
+                    _responseEditBiodata.value = Result.Success(it)
+                }
+            } else {
+                _responseEditBiodata.value = Result.Error("Error: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            _responseEditBiodata.value = Result.Error(e.message.toString())
         }
     }
 
@@ -158,6 +178,26 @@ class Repository(private val apiService: ApiService, private val context: Contex
         return result
 
     }
+
+    suspend fun getProfilUsaha(userid:String){
+        try {
+            val response = ApiConfig.getApiService().getProfilUsaha(userid)
+            if (response.isSuccessful) {
+                val result = response.body()
+                result?.let{
+                    _responseProfilUsaha.value = Result.Success(it)
+                }
+            } else {
+                _responseProfilUsaha.value = Result.Error("Error: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            _responseProfilUsaha.value = Result.Error(e.message.toString())
+        }
+    }
+
+
+
+
 
 
 }

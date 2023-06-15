@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/button_primary"
     android:backgroundTint="@color/yellow_100"
-    tools:context=".ui.user.BiodataActivity">
+    tools:context=".ui.usaha.UsahaBiodataActivity">
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -38,15 +39,16 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_biodata_text"
+                android:id="@+id/tv_profile_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@string/isi_data_diri"
+                android:text="@string/usaha_profil_text"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
+
 
             <TextView
                 android:id="@+id/tv_nama_text"
@@ -54,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="18dp"
-                android:text="@string/name_text"
+                android:text="@string/usaha_name_text"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -69,7 +71,7 @@
                 app:boxStrokeWidth="5dp">
 
                 <com.capstone.siapabisa.ui.custom.UsernameEditText
-                    android:id="@+id/et_biodata_name"
+                    android:id="@+id/et_profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/text_input_bg"
@@ -79,48 +81,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/tv_birthday_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="18dp"
-                android:text="@string/birthdate_text"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_birthdate_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="32dp"
-                android:text="@string/birthdate_field"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <View
-                android:id="@+id/underline"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/black" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_datePicker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:background="@drawable/button_primary"
-                android:drawableStart="@drawable/ic_calendar"
-                android:padding="8dp"
-                android:text="@string/choose_date"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_alamat_text"
@@ -159,74 +119,17 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
-                android:id="@+id/tv_pendidikan_text"
+                android:id="@+id/tv_bidang_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="18dp"
-                android:text="@string/pendidikan_terakhir"
+                android:text="@string/usaha_bidang_text"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <Spinner
-                android:id="@+id/spinner_pendidikan"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/text_input_bg" />
-
-            <TextView
-                android:id="@+id/tv_pengalaman_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="18dp"
-                android:text="@string/pengalaman_text"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/spinner_pengalaman"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/text_input_bg" />
-
-            <TextView
-                android:id="@+id/tv_keterampilan_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="18dp"
-                android:text="@string/keterampilan_text"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/spinner_keterampilan"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="32dp"
-                android:background="@drawable/text_input_bg" />
-
-            <TextView
-                android:id="@+id/tv_peminatan_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="18dp"
-                android:text="@string/peminatan_text"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <Spinner
-                android:id="@+id/spinner_peminatan"
+                android:id="@+id/spinner_bidang"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginStart="32dp"
@@ -240,7 +143,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="18dp"
-                android:text="@string/deskripsi_text"
+                android:text="@string/usaha_deskripsi_text"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -255,7 +158,7 @@
                 app:boxStrokeWidth="5dp">
 
                 <com.capstone.siapabisa.ui.custom.UsernameEditText
-                    android:id="@+id/et_biodata_deskripsi"
+                    android:id="@+id/et_profile_deskripsi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/text_input_bg"
@@ -287,5 +190,7 @@
         </LinearLayout>
 
     </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

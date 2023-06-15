@@ -3,7 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -22,6 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SiapaBisa"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.usaha.UsahaBiodataActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.usaha.UsahaNewLoker"
             android:exported="false" />
@@ -79,6 +84,7 @@
         <activity
             android:name=".ui.user.MainActivity"
             android:exported="true" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.capstone.siapabisa"

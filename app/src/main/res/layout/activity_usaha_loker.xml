@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.usaha.UsahaLokerActivity">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/tv_my_usaha"
         android:layout_width="wrap_content"
@@ -20,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_action_items"
+        android:id="@+id/rv_joblist"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:orientation="vertical"

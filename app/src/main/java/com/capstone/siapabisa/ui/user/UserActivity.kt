@@ -12,6 +12,8 @@ import com.capstone.siapabisa.databinding.ActivityUserBinding
 import com.capstone.siapabisa.di.ViewModelFactory
 import com.capstone.siapabisa.ui.user.viewmodel.UserViewModel
 import com.capstone.siapabisa.data.Result
+import com.capstone.siapabisa.data.local.LoginPreferences
+import com.capstone.siapabisa.ui.auth.LoginActivity
 
 class UserActivity : AppCompatActivity() {
 
@@ -33,11 +35,25 @@ class UserActivity : AppCompatActivity() {
             startActivity(Intent(this, BiodataActivity::class.java))
         }
 
+        binding.btnLogout.setOnClickListener{
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
 
     }
 
     private fun setupBiodata(){
-    viewModel.getBiodata("6471fee8411cc99a27631ed0")
+        val preferences = LoginPreferences(this)
+        val userId = preferences.getUserId()
+        val username = preferences.getUsername()
+        val email = preferences.getUserEmail()
+
+
+        if (userId != null) {
+            viewModel.getBiodata(userId)
+        }
 
         viewModel.responseBiodata.observe(this){biodata -> when(biodata){
             is Result.Success -> {
@@ -48,6 +64,9 @@ class UserActivity : AppCompatActivity() {
                 binding.tvKeterampilan.text = biodata.data.biodata?.keterampilan
                 binding.tvPeminatan.text = biodata.data.biodata?.peminatan
                 binding.tvDeskripsi.text = biodata.data.biodata?.deskripsiDiri
+
+                binding.tvUsername.text = username
+                binding.tvEmail.text = email
 
 
             }

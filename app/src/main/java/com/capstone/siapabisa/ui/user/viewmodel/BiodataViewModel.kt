@@ -14,9 +14,9 @@ class BiodataViewModel(private val repository: Repository): ViewModel() {
     private val _responseCheckBiodata = repository.responseCheckBiodata
     val responseCheckBiodata = _responseCheckBiodata
 
-    fun submitBiodata(nama : String, birthday : Birthday, alamat : String, deskripsiDiri : String, pendidikan : String, pengalaman : String, keterampilan : String, peminatan : String){
+    fun submitBiodata(userId:String, nama : String, birthday : Birthday, alamat : String, deskripsiDiri : String, pendidikan : String, pengalaman : String, keterampilan : String, peminatan : String){
         viewModelScope.launch {
-            repository.submitBiodata(nama, birthday, alamat, deskripsiDiri, pendidikan, pengalaman, keterampilan, peminatan)
+            repository.submitBiodata(userId, nama, birthday, alamat, deskripsiDiri, pendidikan, pengalaman, keterampilan, peminatan)
         }
     }
     fun checkBiodata(userid:String){

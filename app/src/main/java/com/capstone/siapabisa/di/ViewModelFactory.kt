@@ -7,6 +7,8 @@ import com.capstone.siapabisa.data.Repository
 import com.capstone.siapabisa.ui.auth.viewmodel.LoginViewModel
 import com.capstone.siapabisa.ui.auth.viewmodel.RegisterViewModel
 import com.capstone.siapabisa.ui.usaha.viewmodel.NewLokerViewModel
+import com.capstone.siapabisa.ui.usaha.viewmodel.UsahaMainViewModel
+import com.capstone.siapabisa.ui.usaha.viewmodel.UsahaViewModel
 import com.capstone.siapabisa.ui.user.viewmodel.BiodataViewModel
 import com.capstone.siapabisa.ui.user.viewmodel.DetailViewModel
 import com.capstone.siapabisa.ui.user.viewmodel.MainViewModel
@@ -35,8 +37,14 @@ class ViewModelFactory private constructor(private val repository: Repository) :
             modelClass.isAssignableFrom(DetailViewModel::class.java) -> {
                 return DetailViewModel(repository) as T
             }
+            modelClass.isAssignableFrom(UsahaMainViewModel::class.java) -> {
+                return UsahaMainViewModel(repository) as T
+            }
             modelClass.isAssignableFrom(NewLokerViewModel::class.java) -> {
                 return NewLokerViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(UsahaViewModel::class.java) -> {
+                return UsahaViewModel(repository) as T
             }
 
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
