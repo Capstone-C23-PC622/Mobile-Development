@@ -9,18 +9,29 @@ import com.capstone.siapabisa.data.remote.ApiConfig
 import com.capstone.siapabisa.data.remote.ApiService
 import com.capstone.siapabisa.data.remote.ResponseBiodata
 import com.capstone.siapabisa.data.remote.ResponseEditBiodata
+import com.capstone.siapabisa.data.remote.ResponseEditProfil
+import com.capstone.siapabisa.data.remote.ResponsePostLoker
 import com.capstone.siapabisa.data.remote.ResponseProfilUsaha
 import com.capstone.siapabisa.data.remote.ResponseRegister
 import com.capstone.siapabisa.data.remote.ResponseSubmitBiodata
+import com.capstone.siapabisa.data.remote.ResponseSubmitProfil
 import com.capstone.siapabisa.data.remote.model.BiodataEdit
 import com.capstone.siapabisa.data.remote.model.BiodataEditData
 import com.capstone.siapabisa.data.remote.model.BiodataSubmit
 import com.capstone.siapabisa.data.remote.model.BiodataSubmitData
+import com.capstone.siapabisa.data.remote.model.BiodataSubmitParent
 import com.capstone.siapabisa.data.remote.model.Birthday
 import com.capstone.siapabisa.data.remote.model.DetailLoker
 import com.capstone.siapabisa.data.remote.model.Job
 import com.capstone.siapabisa.dummy.Jobs
 import com.capstone.siapabisa.dummy.jobList
+import com.capstone.siapabisa.util.BiodataEditSerializer
+import com.capstone.siapabisa.util.BiodataSubmitSerializer
+import com.capstone.siapabisa.util.BirthdaySerializer
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class Repository(private val apiService: ApiService, private val context: Context) {
 
@@ -44,6 +55,15 @@ class Repository(private val apiService: ApiService, private val context: Contex
 
     private val _responseProfilUsaha = MutableLiveData<Result<ResponseProfilUsaha>>()
     val responseProfilUsaha: LiveData<Result<ResponseProfilUsaha>> = _responseProfilUsaha
+
+    private val _responseSubmitProfil = MutableLiveData<Result<ResponseSubmitProfil>>()
+    val responseSubmitProfil: LiveData<Result<ResponseSubmitProfil>> = _responseSubmitProfil
+
+    private val _responseEditProfil = MutableLiveData<Result<ResponseEditProfil>>()
+    val responseEditProfil: LiveData<Result<ResponseEditProfil>> = _responseEditProfil
+
+    private val _responseUpload = MutableLiveData<Result<ResponsePostLoker>>()
+    val responseUpload : LiveData<Result<ResponsePostLoker>> = _responseUpload
 
 
 
@@ -96,10 +116,23 @@ class Repository(private val apiService: ApiService, private val context: Contex
     }
 
     suspend fun submitBiodata(userId : String,nama : String, birthday : Birthday, alamat : String, deskripsiDiri : String, pendidikan : String, pengalaman : String, keterampilan : String, peminatan : String){
-        try {
 
-            val biodataInner = BiodataSubmitData(nama,birthday)
-            val biodataBody = BiodataSubmit(userId,biodataInner,alamat,deskripsiDiri,pendidikan,pengalaman,keterampilan,peminatan)
+        val biodataBody = BiodataSubmit(
+            userId = userId,
+            data = BiodataSubmitData(
+                nama = nama,
+                birthday = birthday,
+                alamat = alamat,
+                deskripsiDiri = deskripsiDiri,
+                pendidikan = pendidikan,
+                pengalaman = pengalaman,
+                keterampilan = keterampilan,
+                peminatan = peminatan
+            )
+        )
+
+
+        try {
 
             val response = ApiConfig.getApiService().submitBiodata(biodataBody)
             if (response.isSuccessful) {
@@ -116,12 +149,23 @@ class Repository(private val apiService: ApiService, private val context: Contex
     }
 
     suspend fun editBiodata(id:String,nama: String, birthday : Birthday, alamat : String, deskripsiDiri : String, pendidikan : String, pengalaman : String, keterampilan : String, peminatan : String){
+
+        val biodataBody = BiodataEdit(
+            data = BiodataEditData(
+                nama = nama,
+                birthday = birthday
+            ),
+            alamat = alamat,
+            deskripsiDiri = deskripsiDiri,
+            pendidikan = pendidikan,
+            pengalaman = pengalaman,
+            keterampilan = keterampilan,
+            peminatan = peminatan
+        )
+
+
         try {
-
-            val biodataInner = BiodataEditData(nama,birthday)
-            val biodataBody = BiodataEdit(id,biodataInner,alamat,deskripsiDiri,pendidikan,pengalaman,keterampilan,peminatan)
-
-            val response = ApiConfig.getApiService().editBiodata(biodataBody)
+            val response = ApiConfig.getApiService().editBiodata(id,biodataBody)
             if (response.isSuccessful) {
                 val result = response.body()
                 result?.let{
@@ -194,6 +238,61 @@ class Repository(private val apiService: ApiService, private val context: Contex
             _responseProfilUsaha.value = Result.Error(e.message.toString())
         }
     }
+
+    suspend fun submitProfilUsaha(userId:String,namaUsaha:String,alamat:String,deskripsi:String,bidangUsaha:String){
+        try {
+            val response = ApiConfig.getApiService().submitProfilUsaha(userId,namaUsaha,alamat,deskripsi,bidangUsaha)
+            if (response.isSuccessful) {
+                val result = response.body()
+                result?.let{
+                    _responseSubmitProfil.value = Result.Success(it)
+                }
+            } else {
+                _responseSubmitProfil.value = Result.Error("Error: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            _responseSubmitProfil.value = Result.Error(e.message.toString())
+        }
+    }
+
+    suspend fun editProfilUsaha(id:String,userId:String,namaUsaha:String,alamat:String,deskripsi:String,bidangUsaha:String){
+        try {
+            val response = ApiConfig.getApiService().updateProfilUsaha(id,userId,namaUsaha,alamat,deskripsi,bidangUsaha)
+            if (response.isSuccessful) {
+                val result = response.body()
+                result?.let{
+                    _responseEditProfil.value = Result.Success(it)
+                }
+            } else {
+                _responseEditProfil.value = Result.Error("Error: ${response.code()}")
+            }
+        } catch (e: Exception) {
+            _responseEditProfil.value = Result.Error(e.message.toString())
+        }
+    }
+
+    suspend fun postLoker(userId: RequestBody,namaPerusahaan: RequestBody,lowongan: RequestBody, jenisLowongan: RequestBody, pendidikan: RequestBody, pengalaman: RequestBody, lokasi: RequestBody, deskripsi: RequestBody, image: MultipartBody.Part){
+        _responseUpload.value = Result.Loading
+
+        try{
+            val response = ApiConfig.getApiService().postLoker(userId,namaPerusahaan,lowongan,jenisLowongan,pendidikan,pengalaman,lokasi,deskripsi,image)
+            if(response.isSuccessful){
+                val result = response.body()
+                result?.let{
+                    _responseUpload.value = Result.Success(it)
+                }
+            }
+            else{
+                _responseUpload.value = Result.Error("Error: ${response.code()}")
+            }
+        }
+        catch(e:Exception){
+            _responseUpload.value = Result.Error(e.message.toString())
+        }
+
+    }
+
+
 
 
 

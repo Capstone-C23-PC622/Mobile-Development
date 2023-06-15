@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import com.capstone.siapabisa.ui.user.viewmodel.MainViewModel
 import com.capstone.siapabisa.data.Result
 import com.capstone.siapabisa.data.remote.model.Job
 import androidx.core.util.Pair
+import com.capstone.siapabisa.data.local.LoginPreferences
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +34,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         factory = ViewModelFactory.getInstance(this)
+
+        checkBiodata()
 
         viewModel.getAllJobs().observe(this){ jobs->
             when(jobs){
@@ -113,4 +117,28 @@ class MainActivity : AppCompatActivity() {
         binding.rvRekomendasi.adapter = adapter
         binding.rvRekomendasi.layoutManager = layoutManager
     }
-}
+
+    private fun checkBiodata(){
+        val preferences = LoginPreferences(this)
+        val userId = preferences.getUserId()
+
+        if (userId != null) {
+            viewModel.getBiodata(userId)
+            viewModel.responseBiodata.observe(this){biodata -> when(biodata){
+                is Result.Success->{
+                    Toast.makeText(this, "Selamat Datang", Toast.LENGTH_SHORT).show()
+                }
+                is Result.Error->{
+                    Toast.makeText(this, "Anda belum mengisi biodata", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, BiodataActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
+                    startActivity(intent)
+                    finish()
+                }
+                is Result.Loading->{
+
+                }
+            }
+        }
+    }
+}}

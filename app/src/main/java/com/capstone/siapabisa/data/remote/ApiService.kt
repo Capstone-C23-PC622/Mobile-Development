@@ -2,14 +2,19 @@ package com.capstone.siapabisa.data.remote
 
 import com.capstone.siapabisa.data.remote.model.BiodataEdit
 import com.capstone.siapabisa.data.remote.model.BiodataSubmit
+import com.capstone.siapabisa.data.remote.model.BiodataSubmitParent
 import com.capstone.siapabisa.data.remote.model.Birthday
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Part
 import retrofit2.http.Path
 import retrofit2.http.Url
 
@@ -43,6 +48,7 @@ interface ApiService {
 
     @PUT("/user/biodata/{id}")
     suspend fun editBiodata(
+        @Path("id")id:String,
         @Body biodata: BiodataEdit
     ): Response<ResponseEditBiodata>
 
@@ -78,5 +84,20 @@ interface ApiService {
         @Field("alamat")alamat:String,
         @Field("deskripsiUsaha")deskripsiUsaha:String,
         @Field("bidangUsaha")bidangUsaha:String,
-    )
+    ): Response<ResponseEditProfil>
+
+    @Multipart
+    @POST("pengusaha/loker")
+    suspend fun postLoker(
+        @Part("userId")userid: RequestBody,
+        @Part("namaPerusahaan")namaUsaha:RequestBody,
+        @Part("lowongan")lowongan:RequestBody,
+        @Part("jenisLowongan")jenisLowongan:RequestBody,
+        @Part("pendidikan")pendidikan:RequestBody,
+        @Part("pengalaman")pengalaman:RequestBody,
+        @Part("lokasi")lokasi:RequestBody,
+        @Part("deskripsi")deskripsi:RequestBody,
+        @Part file: MultipartBody.Part
+
+    ): Response<ResponsePostLoker>
 }

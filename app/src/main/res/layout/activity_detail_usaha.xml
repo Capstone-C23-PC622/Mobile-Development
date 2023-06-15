@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/button_primary"
     android:backgroundTint="@color/yellow_100"
-    tools:context=".ui.user.DetailLokerActivity">
+    tools:context=".ui.usaha.DetailUsahaActivity">
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -178,18 +179,18 @@
                 android:textSize="17sp" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_submit_lamar"
+                android:id="@+id/btn_close"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_marginStart="86dp"
                 android:layout_marginEnd="86dp"
                 android:layout_marginBottom="30dp"
-                android:background="@drawable/button_primary"
+                android:background="@drawable/button_danger"
                 android:padding="4dp"
-                android:text="@string/lamar_text"
+                android:text="@string/tutup_loker"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/red_900"
                 android:textSize="16sp"
                 />
 
@@ -202,16 +203,16 @@
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="54dp"
         android:background="@color/blue_900"
-        app:itemIconSize="@dimen/bottom_nav_icon_size"
         app:itemIconTint="@color/bottom_nav_color"
+        app:itemIconSize="@dimen/bottom_nav_icon_size"
         app:itemTextColor="@color/white"
-        app:labelVisibilityMode="labeled"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
+        app:menu="@menu/bottom_nav_usaha_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

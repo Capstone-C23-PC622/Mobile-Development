@@ -25,6 +25,9 @@
         android:theme="@style/Theme.SiapaBisa"
         tools:targetApi="31">
         <activity
+            android:name=".ui.usaha.DetailUsahaActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.usaha.UsahaBiodataActivity"
             android:exported="false" />
         <activity

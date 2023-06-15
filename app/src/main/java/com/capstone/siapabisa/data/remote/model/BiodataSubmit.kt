@@ -2,28 +2,44 @@ package com.capstone.siapabisa.data.remote.model
 
 import com.google.gson.annotations.SerializedName
 
+data class BiodataSubmitParent(
+    val data: BiodataSubmit
+)
+
 data class BiodataSubmit(
 
+    @SerializedName("userId")
     val userId: String,
 
-    val data: BiodataSubmitData,
+    @SerializedName("data")
+    val data: BiodataSubmitData
 
-    val alamat: String,
 
-    val deskripsiDiri:String,
-
-    val pendidikan: String,
-
-    val pengalaman: String,
-
-    val peminatan: String,
-
-    val keterampilan: String
 )
 
 data class BiodataSubmitData(
 
+    @SerializedName("nama")
     val nama: String,
 
-    val birthday: Birthday
+    @SerializedName("birthday")
+    val birthday: Birthday,
+
+    @SerializedName("alamat")
+    val alamat: String,
+
+    @SerializedName("deskripsiDiri")
+    val deskripsiDiri:String,
+
+    @SerializedName("pendidikan")
+    val pendidikan: String,
+
+    @SerializedName("pengalaman")
+    val pengalaman: String,
+
+    @SerializedName("peminatan")
+    val peminatan: String,
+
+    @SerializedName("keterampilan")
+    val keterampilan: String
 )

@@ -77,6 +77,34 @@ class UsahaMainActivity : AppCompatActivity() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        val pref = LoginPreferences(this)
+        val userId = pref.getUserId()
+        viewModel.getAllJobs().observe(this){ jobs->
+            when(jobs){
+                is Result.Success->{
+                    _jobs = jobs.data
+                    setupListJobs(jobs.data)
+                    if (userId != null) {
+                        adapter.filter(userId)
+                    }
+                    adapter.notifyDataSetChanged()
+                    checkIfEmpty()
+                    binding.progressBar.visibility = View.GONE
+
+                }
+                is Result.Error->{
+                    binding.progressBar.visibility = View.GONE
+
+                }
+                is Result.Loading->{
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+            }
+        }
+    }
+
     private fun checkProfil(){
         val preferences = LoginPreferences(this)
         val userId = preferences.getUserId()
@@ -91,9 +119,10 @@ class UsahaMainActivity : AppCompatActivity() {
                 }
                 is Result.Error->{
                     Toast.makeText(this, "Anda belum mengisi profil", Toast.LENGTH_SHORT).show()
-//                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                    val intent = Intent(this, UsahaBiodataActivity::class.java)
-//                    startActivity(intent)
+                    val intent = Intent(this, UsahaBiodataActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
+                    startActivity(intent)
+                    finish()
                 }
                 is Result.Loading->{
 
@@ -140,8 +169,8 @@ class UsahaMainActivity : AppCompatActivity() {
     private fun setupListJobs(listJobs: List<Job>){
         val listAdapter = ListJobUsahaAdapter(listJobs, this, object : ListJobUsahaAdapter.JobsListener {
             override fun onItemClicked(job: Job, ivJobPic: ImageView, tvName: TextView, tvDescription: TextView, tvDate : TextView) {
-                val intent = Intent(this@UsahaMainActivity, UsahaNewLoker::class.java)
-                intent.putExtra("action", "edit")
+                val intent = Intent(this@UsahaMainActivity, DetailUsahaActivity::class.java)
+                intent.putExtra("data", job)
 
                 val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                     this@UsahaMainActivity,
@@ -176,4 +205,6 @@ class UsahaMainActivity : AppCompatActivity() {
             binding.btnAddLoker.visibility = View.VISIBLE
         }
     }
+
+
 }
