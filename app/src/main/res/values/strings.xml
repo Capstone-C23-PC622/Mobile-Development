@@ -48,7 +48,7 @@
     <string name="isi_data_diri">Isi Data Diri</string>
     <string name="simpan_text">Simpan</string>
     <string name="loker_saya">Loker Saya</string>
-    <string name="text_no_data">Anda tidak memiliki lowongan kerja</string>
+    <string name="text_no_data">Belum ada lowongan</string>
     <string name="buat_loker">Buat Lowongan</string>
     <string name="text_detail_loker">Detail Lowongan</string>
     <string name="nama_perusahaan">Company Name</string>
@@ -71,4 +71,9 @@
     <string name="deskripsi_singkat">Deskripsi Singkat</string>
     <string name="jenis_loker">Jenis Lowongan</string>
     <string name="cari_text">Cari Lowongan</string>
+    <string name="usaha_name_text">Nama Perusahaan</string>
+    <string name="usaha_bidang_text">Bidang Usaha</string>
+    <string name="usaha_deskripsi_text">Deskripsi Usaha</string>
+    <string name="usaha_profil_text">Profil Usaha</string>
+    <string name="keterampilan_loker">Peferensi Keterampilan</string>
 </resources>

@@ -1,12 +1,17 @@
 package com.capstone.siapabisa.data.remote
 
+import com.capstone.siapabisa.data.remote.model.BiodataEdit
+import com.capstone.siapabisa.data.remote.model.BiodataSubmit
 import com.capstone.siapabisa.data.remote.model.Birthday
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Url
 
 
 interface ApiService {
@@ -31,18 +36,15 @@ interface ApiService {
         @Path("userid")userid:String
     ): Response<ResponseBiodata>
 
-    @FormUrlEncoded
-    @POST("user/biodata")
+    @POST("/user/biodata")
     suspend fun submitBiodata(
-        @Field("nama")nama:String,
-        @Field("birthday")birthday: Birthday,
-        @Field("alamat")alamat:String,
-        @Field("deskripsiDiri")deskripsiDiri:String,
-        @Field("pendidikan")pendidikan:String,
-        @Field("pengalaman")pengalaman:String,
-        @Field("keterampilan")keterampilan:String,
-        @Field("peminatan")peminatan:String
+        @Body biodata: BiodataSubmit
     ): Response<ResponseSubmitBiodata>
+
+    @PUT("/user/biodata/{id}")
+    suspend fun editBiodata(
+        @Body biodata: BiodataEdit
+    ): Response<ResponseEditBiodata>
 
     @GET("pengusaha/loker")
     suspend fun getAllJobs(): Response<ResponseJobs>
@@ -52,4 +54,29 @@ interface ApiService {
         @Path("id")id:String
     ): Response<ResponseDetail>
 
+    @GET("pengusaha/profile/{id}")
+    suspend fun getProfilUsaha(
+        @Path("id")id:String
+    ): Response<ResponseProfilUsaha>
+
+    @FormUrlEncoded
+    @POST("pengusaha/profile")
+    suspend fun submitProfilUsaha(
+        @Field("userId")userId:String,
+        @Field("namaUsaha")namaUsaha:String,
+        @Field("alamat")alamat:String,
+        @Field("deskripsiUsaha")deskripsiUsaha:String,
+        @Field("bidangUsaha")bidangUsaha:String,
+    ): Response<ResponseSubmitProfil>
+
+    @FormUrlEncoded
+    @PUT("pengusaha/profile/{id}")
+    suspend fun updateProfilUsaha(
+        @Path("id")id:String,
+        @Field("userId")userId:String,
+        @Field("namaUsaha")namaUsaha:String,
+        @Field("alamat")alamat:String,
+        @Field("deskripsiUsaha")deskripsiUsaha:String,
+        @Field("bidangUsaha")bidangUsaha:String,
+    )
 }

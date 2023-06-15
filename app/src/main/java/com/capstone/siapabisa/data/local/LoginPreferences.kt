@@ -17,7 +17,29 @@ class LoginPreferences(context: Context) {
         edit.apply()
     }
 
-    fun getUserid(): String? {
+    fun setUserEmail(email:String){
+        val edit = preference.edit()
+        edit.putString("email",email)
+        edit.apply()
+    }
+
+    fun getUserEmail(): String? {
+        return preference.getString("email", null)
+    }
+
+    fun setUsername(username:String){
+        val edit = preference.edit()
+        edit.putString("username",username)
+        edit.apply()
+    }
+
+    fun getUsername(): String? {
+        return preference.getString("username", null)
+    }
+
+
+
+    fun getUserId(): String? {
         return preference.getString("userid", null)
     }
 
