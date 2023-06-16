@@ -83,6 +83,9 @@ class UsahaNewLoker : AppCompatActivity(),AdapterView.OnItemSelectedListener {
                     is Result.Success -> {
                         binding.progressBar.visibility = View.GONE
                         Toast.makeText(this, "Berhasil menambahkan lowongan kerja", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, UsahaLokerActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
+                        startActivity(intent)
                         finish()
                     }
                     is Result.Error -> {

@@ -74,7 +74,7 @@ class SearchActivity : AppCompatActivity() {
     private fun setupBottomNav(){
 
         val bottomNav = binding.bottomNavigationView
-        bottomNav.selectedItemId = R.id.akun
+        bottomNav.selectedItemId = R.id.search
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
