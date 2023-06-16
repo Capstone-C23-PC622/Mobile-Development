@@ -14,19 +14,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_primary"
+        android:backgroundTint="@color/yellow_100">
 
-        <ImageView
-            android:id="@+id/iv_company_logo"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="8dp"
-            android:contentDescription="@string/company_logo"
-            app:layout_constraintEnd_toStartOf="@id/tv_company_name"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+
 
         <TextView
             android:id="@+id/tv_company_name"
@@ -39,7 +31,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_message"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_company_logo"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@string/company_name" />
 
@@ -49,25 +41,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="4dp"
             android:textSize="12sp"
             android:textColor="@color/black"
-            app:layout_constraintStart_toEndOf="@id/iv_company_logo"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_company_name"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="@string/message_text" />
 
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
-            android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@id/iv_company_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_message"
-            tools:text="@string/job_time_text" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

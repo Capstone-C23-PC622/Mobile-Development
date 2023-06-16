@@ -6,9 +6,9 @@
         android:icon="@drawable/ic_home"
         android:title="@string/text_home"/>
     <item
-        android:id="@+id/saved"
+        android:id="@+id/search"
         android:enabled="true"
-        android:icon="@drawable/ic_saved"
+        android:icon="@drawable/ic_search"
         android:title="@string/text_saved"/>
     <item
         android:id="@+id/notification"

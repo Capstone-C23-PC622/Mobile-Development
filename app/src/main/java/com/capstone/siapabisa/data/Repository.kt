@@ -7,10 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import com.capstone.siapabisa.data.remote.model.Login
 import com.capstone.siapabisa.data.remote.ApiConfig
 import com.capstone.siapabisa.data.remote.ApiService
+import com.capstone.siapabisa.data.remote.ModelApiConfig
 import com.capstone.siapabisa.data.remote.ResponseBiodata
 import com.capstone.siapabisa.data.remote.ResponseEditBiodata
 import com.capstone.siapabisa.data.remote.ResponseEditProfil
 import com.capstone.siapabisa.data.remote.ResponsePostLoker
+import com.capstone.siapabisa.data.remote.ResponsePredict
 import com.capstone.siapabisa.data.remote.ResponseProfilUsaha
 import com.capstone.siapabisa.data.remote.ResponseRegister
 import com.capstone.siapabisa.data.remote.ResponseSubmitBiodata
@@ -23,6 +25,7 @@ import com.capstone.siapabisa.data.remote.model.BiodataSubmitParent
 import com.capstone.siapabisa.data.remote.model.Birthday
 import com.capstone.siapabisa.data.remote.model.DetailLoker
 import com.capstone.siapabisa.data.remote.model.Job
+import com.capstone.siapabisa.data.remote.model.PredictRequest
 import com.capstone.siapabisa.dummy.Jobs
 import com.capstone.siapabisa.dummy.jobList
 import com.capstone.siapabisa.util.BiodataEditSerializer
@@ -32,6 +35,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.Response
 
 class Repository(private val apiService: ApiService, private val context: Context) {
 
@@ -65,6 +69,8 @@ class Repository(private val apiService: ApiService, private val context: Contex
     private val _responseUpload = MutableLiveData<Result<ResponsePostLoker>>()
     val responseUpload : LiveData<Result<ResponsePostLoker>> = _responseUpload
 
+    private val _responsePredict = MutableLiveData<Result<ResponsePredict>>()
+    val responsePredict : LiveData<Result<ResponsePredict>> = _responsePredict
 
 
     suspend fun login(username : String, password : String){
@@ -292,7 +298,27 @@ class Repository(private val apiService: ApiService, private val context: Contex
 
     }
 
+    suspend fun postPrediction(keterampilan:String,peminatan:String){
+     _responsePredict.value = Result.Loading
 
+        val predictRequest = PredictRequest(keterampilan,peminatan)
+
+     try{
+            val response = ModelApiConfig.getApiService().getPrediction(predictRequest)
+            if(response.isSuccessful){
+                val result = response.body()
+                result?.let{
+                    _responsePredict.value = Result.Success(it)
+                }
+            }
+            else{
+                _responsePredict.value = Result.Error("Error: ${response.code()}")
+            }
+        }
+        catch(e:Exception){
+            _responsePredict.value = Result.Error(e.message.toString())
+     }
+    }
 
 
 

@@ -57,6 +57,20 @@ class LoginPreferences(context: Context) {
         return preference.getString("token", null)
     }
 
+    fun addLamar(namaUsaha: String) {
+        val existingSet = preference.getStringSet("lamar", mutableSetOf()) ?: mutableSetOf()
+        existingSet.add(namaUsaha)
+
+        val edit = preference.edit()
+        edit.putStringSet("lamar", existingSet)
+        edit.apply()
+    }
+
+    fun getLamarList(): List<String> {
+        val lamarSet = preference.getStringSet("lamar", emptySet()) ?: emptySet()
+        return lamarSet.toList()
+    }
+
     fun clearData(){
         val edit = preference.edit().clear()
         edit.apply()

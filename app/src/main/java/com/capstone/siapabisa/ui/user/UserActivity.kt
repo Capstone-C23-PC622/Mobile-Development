@@ -103,7 +103,7 @@ class UserActivity : AppCompatActivity() {
 
     }
 
-    private fun setupBottomNav() {
+    private fun setupBottomNav(){
 
         val bottomNav = binding.bottomNavigationView
         bottomNav.selectedItemId = R.id.akun
@@ -115,8 +115,8 @@ class UserActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.saved -> {
-                    startActivity(Intent(this, SavedActivity::class.java))
+                R.id.search -> {
+                    startActivity(Intent(this, SearchActivity::class.java))
                     true
                 }
 

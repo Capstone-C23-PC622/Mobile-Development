@@ -79,9 +79,16 @@ class UsahaBiodataActivity : AppCompatActivity(),AdapterView.OnItemSelectedListe
 
             }
             else{
+                viewModel.submitProfilUsaha(userId, name, alamat, bidang, deskripsi)
+                try{
+                    submitProfil()
+                }
+                catch(e: Exception){
+
+                    Toast.makeText(this, "Biodata Failed", Toast.LENGTH_SHORT).show()
+                }
                 Log.d("BiodataActivity", "-ACTION-: $action")
             }
-
 
         }
 

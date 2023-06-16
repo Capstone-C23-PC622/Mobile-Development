@@ -63,6 +63,7 @@ class SearchActivity : AppCompatActivity() {
             adapter.search(binding.etSearch.text.toString())
             binding.rvJoblist.adapter = adapter
 
+
         }
 
 
@@ -72,25 +73,31 @@ class SearchActivity : AppCompatActivity() {
 
     private fun setupBottomNav(){
 
-        NavigationBarView.OnItemSelectedListener { item ->
-            when(item.itemId) {
-//                R.id.home -> {
-//                    startActivity(Intent(this, MainActivity::class.java))
+        val bottomNav = binding.bottomNavigationView
+        bottomNav.selectedItemId = R.id.akun
+
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home -> {
+                    startActivity(Intent(this, MainActivity::class.java))
+                    true
+                }
+
+//                R.id.search -> {
+//                    startActivity(Intent(this, SearchActivity::class.java))
 //                    true
 //                }
 
-                R.id.saved -> {
-                    startActivity(Intent(this, SavedActivity::class.java))
-                    true
-                }
                 R.id.notification -> {
                     startActivity(Intent(this, NotificationActivity::class.java))
                     true
                 }
+
                 R.id.akun -> {
                     startActivity(Intent(this, UserActivity::class.java))
                     true
                 }
+
                 else -> false
             }
         }

@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var factory: ViewModelFactory
     private lateinit var adapter: ListJobAdapter
 
+    private var keterampilan = ""
+    private var peminatan = ""
+
     private val viewModel: MainViewModel by viewModels {factory}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,8 @@ class MainActivity : AppCompatActivity() {
                 is Result.Success->{
                     setupListJobs(jobs.data)
                     binding.progressBar.visibility = View.GONE
+                    val prediction = predict()
+
                 }
                 is Result.Error->{
                     binding.progressBar.visibility = View.GONE
@@ -73,8 +78,8 @@ class MainActivity : AppCompatActivity() {
 //                    true
 //                }
 
-                R.id.saved -> {
-                    startActivity(Intent(this, SavedActivity::class.java))
+                R.id.search -> {
+                    startActivity(Intent(this, SearchActivity::class.java))
                     true
                 }
 
@@ -118,6 +123,55 @@ class MainActivity : AppCompatActivity() {
         binding.rvRekomendasi.layoutManager = layoutManager
     }
 
+    private fun predict(){
+        viewModel.getPrediction(keterampilan,peminatan)
+
+        viewModel.responsePredict.observe(this){ response->
+            when(response){
+                is Result.Success->{
+                    binding.tvRekomendasiText.text = "Rekomendasi: ${response.data.result.toString()}"
+                    adapter.filter(response.data.result.toString())
+                    adapter.notifyDataSetChanged()
+
+                    Log.d("response", response.data.toString())
+                }
+                is Result.Error->{
+                    Toast.makeText(this,response.errorMessage, Toast.LENGTH_SHORT).show()
+                    Log.d("response", response.errorMessage.toString())
+                }
+                is Result.Loading->{
+                    Log.d("response", "loading")
+                }
+            }
+        }
+
+
+
+    }
+
+    private fun checkIfEmpty() {
+
+        if(adapter.getItemCount()>0) {
+            viewModel.getAllJobs()
+            viewModel.getAllJobs().observe(this){ jobs->
+                when(jobs){
+                    is Result.Success->{
+                        setupListJobs(jobs.data)
+                        binding.progressBar.visibility = View.GONE
+
+                    }
+                    is Result.Error->{
+                        binding.progressBar.visibility = View.GONE
+                    }
+                    is Result.Loading->{
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+    }
+
     private fun checkBiodata(){
         val preferences = LoginPreferences(this)
         val userId = preferences.getUserId()
@@ -126,7 +180,10 @@ class MainActivity : AppCompatActivity() {
             viewModel.getBiodata(userId)
             viewModel.responseBiodata.observe(this){biodata -> when(biodata){
                 is Result.Success->{
-                    Toast.makeText(this, "Selamat Datang", Toast.LENGTH_SHORT).show()
+                    keterampilan = biodata.data.biodata?.keterampilan.toString()
+                    peminatan = biodata.data.biodata?.peminatan.toString()
+
+
                 }
                 is Result.Error->{
                     Toast.makeText(this, "Anda belum mengisi biodata", Toast.LENGTH_SHORT).show()

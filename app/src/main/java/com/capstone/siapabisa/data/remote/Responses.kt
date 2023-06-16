@@ -189,7 +189,11 @@ data class ResponsePostLoker(
     val status: Int? = null
 )
 
+data class ResponsePredict(
 
+    @field:SerializedName("result")
+    val result: String? = null
+)
 
 
 
