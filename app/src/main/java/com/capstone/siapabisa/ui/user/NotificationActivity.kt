@@ -42,7 +42,7 @@ class NotificationActivity : AppCompatActivity() {
             val notificationAccept = Notifs(namaUsaha, "Selamat anda diterima di perusahaan kami")
 
             val listDummyNotifs = mutableListOf(notificationSent,notificationAccept)
-            Toast.makeText(this, listDummyNotifs.toString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Anda telah mengirim lamaran ke ${namaUsaha}", Toast.LENGTH_SHORT).show()
 
             binding.rvNotification.layoutManager = LinearLayoutManager(this)
             binding.rvNotification.setHasFixedSize(true)

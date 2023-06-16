@@ -154,7 +154,7 @@ class BiodataActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener 
 
         }
         if (adapter?.getId() == R.id.spinner_peminatan){
-            val peminatan = enumPengalaman[position]
+            val peminatan = enumPeminatan[position]
             if (peminatan != null) {
                 selectedPeminatan = peminatan
             }

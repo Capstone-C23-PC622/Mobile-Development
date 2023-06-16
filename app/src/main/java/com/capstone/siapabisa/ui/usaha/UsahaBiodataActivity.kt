@@ -56,7 +56,7 @@ class UsahaBiodataActivity : AppCompatActivity(),AdapterView.OnItemSelectedListe
             binding.progressBar.visibility = View.VISIBLE
 
             if(action == "submit"){
-                viewModel.submitProfilUsaha(userId, name, alamat, bidang, deskripsi)
+                viewModel.submitProfilUsaha(userId, name, alamat, deskripsi, bidang)
                 try{
                     submitProfil()
                 }
@@ -67,7 +67,7 @@ class UsahaBiodataActivity : AppCompatActivity(),AdapterView.OnItemSelectedListe
 
             }
             if(action == "edit"){
-                viewModel.editProfilUsaha(biodataId!!, userId, name, alamat, bidang, deskripsi)
+                viewModel.editProfilUsaha(biodataId!!, userId, name, alamat, deskripsi, bidang)
                 try{
                     editProfil()
                 }

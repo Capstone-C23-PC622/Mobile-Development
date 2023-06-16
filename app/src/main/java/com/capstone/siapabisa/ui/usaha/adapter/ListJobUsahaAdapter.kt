@@ -42,6 +42,7 @@ class ListJobUsahaAdapter(private val jobs: List<Job>,
         holder.binding.apply {
             tvName.text = job.namaPerusahaan
             tvDescription.text = job.jenisLowongan
+            tvLocation.text = job.lowongan
             tvDate.text = formatDate(job.createdAt!!)
 
             Glide.with(context)

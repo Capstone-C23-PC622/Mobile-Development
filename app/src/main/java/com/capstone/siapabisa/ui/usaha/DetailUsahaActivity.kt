@@ -18,6 +18,7 @@ import com.capstone.siapabisa.ui.user.NotificationActivity
 import com.capstone.siapabisa.ui.user.SavedActivity
 import com.capstone.siapabisa.ui.user.UserActivity
 import com.capstone.siapabisa.ui.user.viewmodel.DetailViewModel
+import com.capstone.siapabisa.util.formatDate
 
 class DetailUsahaActivity : AppCompatActivity() {
 
@@ -101,7 +102,7 @@ class DetailUsahaActivity : AppCompatActivity() {
         binding.tvDescription.text = deskripsi
         binding.tvPendidikan.text = pendidikan
         binding.tvPengalaman.text = pengalaman
-        binding.tvPostedAt.text = posted
+        binding.tvPostedAt.text = formatDate(posted.toString())
     }
 
     private fun setupBottomNav(){
