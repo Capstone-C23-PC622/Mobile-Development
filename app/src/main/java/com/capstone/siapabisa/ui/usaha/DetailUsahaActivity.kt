@@ -55,9 +55,40 @@ class DetailUsahaActivity : AppCompatActivity() {
             }
         }
 
+        binding.btnClose.setOnClickListener {
+            deleteLoker()
+        }
 
 
 
+
+    }
+
+    private fun deleteLoker(){
+        val loker = intent?.getParcelableExtra<Job>("data")
+        val lokerId = loker?.id
+        if (lokerId != null) {
+            viewModel.deleteLoker(lokerId)
+
+            viewModel.responseDeleteLoker.observe(this){ response->
+                when(response){
+                    is Result.Success->{
+                        Toast.makeText(this, "Berhasil hapus lowongan", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, UsahaMainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NO_HISTORY
+                        startActivity(intent)
+                        finish()
+                        onBackPressed()
+                    }
+                    is Result.Error->{
+                        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+                    }
+                    is Result.Loading->{
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
     }
 
     private fun showDetail(url:String?,namaUsaha:String?,brief:String?,lokasi:String?,deskripsi:String?,pendidikan:String?,pengalaman:String?,posted:String?){

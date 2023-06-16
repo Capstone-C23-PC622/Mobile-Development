@@ -41,6 +41,9 @@ class UsahaLokerActivity : AppCompatActivity() {
         binding.btnAddLoker.setOnClickListener {
             startActivity(Intent(this, UsahaNewLoker::class.java))
         }
+        binding.btnNewLoker.setOnClickListener {
+            startActivity(Intent(this, UsahaNewLoker::class.java))
+        }
 
         val pref = LoginPreferences(this)
         val userId = pref.getUserId()
@@ -130,12 +133,14 @@ class UsahaLokerActivity : AppCompatActivity() {
 
         if(adapter.getItemCount()>0) {
             binding.rvJoblist.visibility = View.VISIBLE
+            binding.btnNewLoker.visibility = View.VISIBLE
             binding.view.visibility = View.GONE
             binding.tvNoData.visibility = View.GONE
             binding.btnAddLoker.visibility = View.GONE
         }
         if(adapter.getItemCount()==0) {
             binding.rvJoblist.visibility = View.GONE
+            binding.btnNewLoker.visibility = View.GONE
             binding.view.visibility = View.VISIBLE
             binding.tvNoData.visibility = View.VISIBLE
             binding.btnAddLoker.visibility = View.VISIBLE

@@ -195,5 +195,20 @@ data class ResponsePredict(
     val result: String? = null
 )
 
+data class ResponseDelete(
+
+    @field:SerializedName("isEmpty")
+    val isEmpty: Boolean? = null,
+
+    @field:SerializedName("error")
+    val error: Boolean? = null,
+
+    @field:SerializedName("message")
+    val message: String? = null,
+
+    @field:SerializedName("status")
+    val status: Int? = null
+)
+
 
 

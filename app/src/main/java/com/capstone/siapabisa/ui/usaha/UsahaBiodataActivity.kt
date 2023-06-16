@@ -171,6 +171,7 @@ class UsahaBiodataActivity : AppCompatActivity(),AdapterView.OnItemSelectedListe
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     binding.progressBar.visibility = View.GONE
                     startActivity(intent)
+                    finish()
                 }
                 is Result.Error->{
                     binding.progressBar.visibility = View.GONE

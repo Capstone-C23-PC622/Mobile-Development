@@ -9,6 +9,7 @@ import com.capstone.siapabisa.data.remote.ApiConfig
 import com.capstone.siapabisa.data.remote.ApiService
 import com.capstone.siapabisa.data.remote.ModelApiConfig
 import com.capstone.siapabisa.data.remote.ResponseBiodata
+import com.capstone.siapabisa.data.remote.ResponseDelete
 import com.capstone.siapabisa.data.remote.ResponseEditBiodata
 import com.capstone.siapabisa.data.remote.ResponseEditProfil
 import com.capstone.siapabisa.data.remote.ResponsePostLoker
@@ -71,6 +72,9 @@ class Repository(private val apiService: ApiService, private val context: Contex
 
     private val _responsePredict = MutableLiveData<Result<ResponsePredict>>()
     val responsePredict : LiveData<Result<ResponsePredict>> = _responsePredict
+
+    private val _responseDelete = MutableLiveData<Result<ResponseDelete>>()
+    val responseDelete : LiveData<Result<ResponseDelete>> = _responseDelete
 
 
     suspend fun login(username : String, password : String){
@@ -297,6 +301,28 @@ class Repository(private val apiService: ApiService, private val context: Contex
         }
 
     }
+
+    suspend fun deleteLoker(id:String){
+        _responseDelete.value = Result.Loading
+
+        try{
+            val response = ApiConfig.getApiService().deleteLoker(id)
+            if(response.isSuccessful){
+                val result = response.body()
+                result?.let{
+                    _responseDelete.value = Result.Success(it)
+                }
+            }
+            else{
+                _responseDelete.value = Result.Error("Error: ${response.code()}")
+            }
+        }
+        catch(e:Exception){
+            _responseDelete.value = Result.Error(e.message.toString())
+        }
+    }
+
+
 
     suspend fun postPrediction(keterampilan:String,peminatan:String){
      _responsePredict.value = Result.Loading
