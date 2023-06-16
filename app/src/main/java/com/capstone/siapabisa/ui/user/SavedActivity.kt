@@ -53,10 +53,10 @@ class SavedActivity : AppCompatActivity() {
 
     }
 
-    private fun setupBottomNav() {
+    private fun setupBottomNav(){
 
         val bottomNav = binding.bottomNavigationView
-        bottomNav.selectedItemId = R.id.saved
+        bottomNav.selectedItemId = R.id.akun
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -65,20 +65,20 @@ class SavedActivity : AppCompatActivity() {
                     true
                 }
 
-//                R.id.saved -> {
-//                    startActivity(Intent(this, SavedActivity::class.java))
-//                    true
-//                }
+                R.id.search -> {
+                    startActivity(Intent(this, SearchActivity::class.java))
+                    true
+                }
 
                 R.id.notification -> {
                     startActivity(Intent(this, NotificationActivity::class.java))
                     true
                 }
 
-                R.id.akun -> {
-                    startActivity(Intent(this, UserActivity::class.java))
-                    true
-                }
+//                R.id.akun -> {
+//                    startActivity(Intent(this, UserActivity::class.java))
+//                    true
+//                }
 
                 else -> false
             }

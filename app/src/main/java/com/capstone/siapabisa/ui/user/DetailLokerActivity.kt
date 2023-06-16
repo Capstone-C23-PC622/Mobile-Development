@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.capstone.siapabisa.R
 import com.capstone.siapabisa.data.Result
+import com.capstone.siapabisa.data.local.LoginPreferences
 import com.capstone.siapabisa.data.remote.model.DetailLoker
 import com.capstone.siapabisa.data.remote.model.Job
 import com.capstone.siapabisa.databinding.ActivityDetailLokerBinding
@@ -18,6 +19,7 @@ import com.capstone.siapabisa.di.ViewModelFactory
 import com.capstone.siapabisa.ui.user.adapter.ListJobAdapter
 import com.capstone.siapabisa.ui.user.viewmodel.DetailViewModel
 import com.capstone.siapabisa.ui.user.viewmodel.MainViewModel
+import com.capstone.siapabisa.util.formatDate
 
 class DetailLokerActivity : AppCompatActivity() {
 
@@ -41,7 +43,7 @@ class DetailLokerActivity : AppCompatActivity() {
             viewModel.getJob(lokerId).observe(this){ job->
                 when(job){
                     is Result.Success->{
-                        showDetail(job.data.image,job.data.namaPerusahaan,job.data.deskripsi,job.data.lokasi,job.data.jenisLowongan, job.data.pendidikan, job.data.pengalaman, job.data.createdAt)
+                        showDetail(job.data.image,job.data.namaPerusahaan,job.data.deskripsi,job.data.lokasi,job.data.jenisLowongan, job.data.pendidikan, job.data.pengalaman, job.data.createdAt, job.data.lowongan)
                         binding.progressBar.visibility = View.GONE
                     }
                     is Result.Error->{
@@ -58,25 +60,36 @@ class DetailLokerActivity : AppCompatActivity() {
 
 
 
+
+
     }
 
-    private fun showDetail(url:String?,namaUsaha:String?,brief:String?,lokasi:String?,deskripsi:String?,pendidikan:String?,pengalaman:String?,posted:String?){
+    private fun showDetail(url:String?,namaUsaha:String?,brief:String?,lokasi:String?,deskripsi:String?,pendidikan:String?,pengalaman:String?,posted:String?, loker:String?){
         Glide.with(this)
             .load(url)
             .into(binding.ivJobPic)
         binding.tvUsaha.text = namaUsaha
         binding.tvBrief.text = brief
         binding.tvLokasi.text = lokasi
+        binding.tvRole.text = loker
         binding.tvDescription.text = deskripsi
         binding.tvPendidikan.text = pendidikan
         binding.tvPengalaman.text = pengalaman
-        binding.tvPostedAt.text = posted
+        binding.tvPostedAt.text = formatDate(posted.toString())
+
+        binding.btnSubmitLamar.setOnClickListener {
+
+
+            val intent = Intent(this, NotificationActivity::class.java)
+            intent.putExtra("namaUsaha",namaUsaha)
+            startActivity(intent)
+        }
     }
 
     private fun setupBottomNav(){
 
         val bottomNav = binding.bottomNavigationView
-
+        bottomNav.selectedItemId = R.id.home
 
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -85,8 +98,8 @@ class DetailLokerActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.saved -> {
-                    startActivity(Intent(this, SavedActivity::class.java))
+                R.id.search -> {
+                    startActivity(Intent(this, SearchActivity::class.java))
                     true
                 }
 

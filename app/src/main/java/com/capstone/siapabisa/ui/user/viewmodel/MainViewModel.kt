@@ -10,6 +10,7 @@ import com.capstone.siapabisa.dummy.Jobs
 import kotlinx.coroutines.launch
 import com.capstone.siapabisa.data.Result
 import com.capstone.siapabisa.data.remote.ResponseBiodata
+import com.capstone.siapabisa.data.remote.ResponsePredict
 
 class MainViewModel(private val repository: Repository): ViewModel() {
 
@@ -17,6 +18,9 @@ class MainViewModel(private val repository: Repository): ViewModel() {
 
     private val _responseBiodata = repository.responseBiodata
     val responseBiodata: LiveData<Result<ResponseBiodata>> = _responseBiodata
+
+    private val _responsePredict = repository.responsePredict
+    val responsePredict: LiveData<Result<ResponsePredict>> = _responsePredict
 
     fun getBiodata(userid:String){
         viewModelScope.launch{
@@ -30,5 +34,11 @@ class MainViewModel(private val repository: Repository): ViewModel() {
                 emitSource(repository.getAllJobs())
             }
         }
+
+    fun getPrediction(keterampilan: String, peminatan: String){
+        viewModelScope.launch{
+            repository.postPrediction(keterampilan, peminatan)
+        }
     }
+}
 

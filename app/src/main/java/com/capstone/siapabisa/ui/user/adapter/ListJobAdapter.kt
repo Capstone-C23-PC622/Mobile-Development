@@ -30,6 +30,18 @@ class ListJobAdapter(private val jobs: List<Job>,
 
     }
 
+    fun filter(query: String){
+        val lowerCaseQuery = query.lowercase()
+        listJobs = originalJobs.filter { job ->
+                    job.jenisLowongan?.lowercase()?.contains(lowerCaseQuery) == true
+        }
+        if(listJobs.isEmpty()){
+            listJobs = originalJobs
+        }
+
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemJobsBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -43,7 +55,8 @@ class ListJobAdapter(private val jobs: List<Job>,
 
         holder.binding.apply {
             tvName.text = job.namaPerusahaan
-            tvDescription.text = job.jenisLowongan
+            tvDescription.text = "${job.jenisLowongan} - ${job.lowongan}"
+            tvLocation.text = job.lokasi
             tvDate.text = job.createdAt?.let { formatDate(it) }
 
             Glide.with(context)
